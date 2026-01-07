@@ -1,0 +1,134 @@
+import { useState } from "react"
+import { Eye, EyeOff, Key } from 'lucide-react'
+import logo from "../assets/educonnect-logo.png"
+import { Link } from "react-router-dom"
+import InputField from "../components/InputField"
+import googleIcon from "../assets/google-icon.png"
+import appleIcon from "../assets/apple-icon.png"
+
+export default function SignUp(){
+    const [showPassword, setShowPassword] = useState(false)
+    const [formData, setFormData] = useState({
+        email: "",
+        password: "",
+    })
+    const [errors, setErrors] = useState({})
+
+
+    const getFieldError = (name, value) =>{
+        let error = "" ;
+        if (name === "fullName") {
+            if (!value.trim()) error = "Email is required."
+            else if(value.trim().length < 5) error = "min. of 5 characters"
+            else if(value.length > 100) error = "max. of 40 characters"
+        }
+        if (name === "email"){
+            if (!value.trim()) error = "Email is required.";
+            else if (!/\S+@\S+\.\S+/.test(value)) error = "Enter a valid email address."
+        }
+        if (name === "password"){
+            if (!value) error = "password is required."
+            else if(value.length < 8) error = "Password must be at least 8 characters." 
+        }
+        if (name === "confirmPassword"){
+            if(!value) error = "confirm your password"
+            else if (value !== formData.password) error = "password do not match"
+        }
+        return error
+    }
+    const handleChange = (e)=>{
+         const {name, value} = e.target
+         setFormData(prev => {
+            return ({...prev, [name]: value})
+         })
+
+         //clear error of that field when typing
+         if(errors[name]){
+            setErrors(prev => ({...prev, [name]:""}))
+         }
+
+    }
+    const handleSubmit = (e)=>{
+        e.preventDefault()
+
+        const newErrors = {}
+        Object.keys(formData).forEach((field) => {
+            const err = getFieldError(field, formData[field]);
+            if(err) newErrors[field] = err;
+        })
+        setErrors(newErrors)
+
+        const hasLocalError = Object.values(newErrors).some((msg) => msg);
+        if (hasLocalError) {
+        return;
+        }
+
+        console.log("now ready to connect to API")
+        
+    }
+    return(
+        <section className="flex w-full min-h-dvh flex-col items-center">
+            <h1 className="text-2xl/8 m-5">Create your account</h1>
+            <p className="text-sm text-gray-500">Sign Up to get started</p>
+
+            <form onSubmit={handleSubmit} className="flex flex-col gap-3 max-w-110 w-70 p-2 ">
+                 <InputField
+                    type="text" 
+                    placeholder="Full Name"
+                    name="fullName"
+                    error={errors.fullName}
+                    onChange={handleChange}
+                    />
+                <InputField
+                    type="Email" 
+                    placeholder="johndoe@educon.com"
+                    name="email"
+                    error={errors.email}
+                    onChange={handleChange}
+                    />
+                <span className=" relative">
+                    <InputField 
+                        type={showPassword ? "text" : "password"} 
+                        placeholder="Password(min.8 chars)" 
+                        name="password"
+                        error={errors.password}
+                        onChange={handleChange}
+                        />
+                        <button
+                            type="button"
+                            onClick={() => setShowPassword(!showPassword)}
+                            className="absolute inset-y-0 right-3 flex items-center text-gray-500 hover:text-gray-700 rounded-full dark:hover:text-gray-300 transition-colors"
+                            >
+                            {showPassword ? (
+                                <EyeOff className="w-5 h-5" />
+                            ) : (
+                                <Eye className="w-5 h-5" />
+                            )}
+                    </button>
+                </span>
+                
+                <InputField 
+                    type="password"
+                    placeholder="Confirm Password" 
+                    name="confirmPassword"
+                    error={errors.confirmPassword}
+                    onChange={handleChange}
+                    />
+                <button className="my-5 w-full text-center bg-sky-700 hover:bg-sky-600 shadow-md/10 shadow-sky-500 rounded-lg p-2 cursor-pointer">Create Account</button>
+            </form>
+            <p className="bg-gray-950 text-gray-600 text-[0.8em]/7 translate-y-3.5 px-1">OR CONTINUE WITH</p>
+            <hr className="text-slate-600 min-w-70"/>
+            <div className="flex gap-1 mt-6 justify-center min-w-70">
+                <button className="flex justify-center gap-2 mx-1 grow  text-center bg-gray-700 hover:bg-gray-600 shadow-md/10 rounded-lg p-1.5 cursor-pointer">
+                    <img src={googleIcon} alt="" className="size-6 "/>
+                    <span>Google</span>
+                </button>
+                <button className="flex justify-center gap-2 mx-1 grow text-center bg-gray-700 hover:bg-gray-600 shadow-md/10 rounded-lg p-1.5 cursor-pointer">
+                    <img src={appleIcon} alt="" className="size-6 "/>
+                    <span>Apple</span>
+                </button>
+            </div>
+        <p className="text-sm w-70 translate-y-10 text-gray-500 text-right font-bold pt-1 account-text">Already a member? <Link to="/LogIn" className="text-sm text-sky-700 text-right hover:underline hover:text-sky-500 ">Sign In</Link></p>
+        </section>
+    )
+}

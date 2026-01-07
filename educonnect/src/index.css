@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+ @keyframes glow {
+        0%, 100% {
+          text-shadow:
+            0 0 10px rgba(255, 0, 204, 0.6),
+            0 0 20px rgba(51, 51, 255, 0.6),
+            0 0 40px rgba(0, 255, 204, 0.6);
+        }
+        50% {
+          text-shadow:
+            0 0 20px rgba(255, 0, 204, 0.8),
+            0 0 40px rgba(51, 51, 255, 0.8),
+            0 0 60px rgba(0, 255, 204, 0.8);
+        }
+      }
+
+.glow-text {
+animation: glow 3s infinite alternate;
+}
+.account-text{
+    font-family: "inter", sans-serif;
+}
+body{
+    font-family: "inter", sans-serif;
+}
