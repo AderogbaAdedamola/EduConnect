@@ -84,7 +84,7 @@ export default function SignUp(){
     }
 
     // const API_URL = import.meta.env.VITE_API_URL + "/signup";
-    const API_URL = "http://localhost:3000/auth";
+    const API_URL = "http://localhost:5500/api/auth";
 
     async function signupUser(newUser) {
         try {

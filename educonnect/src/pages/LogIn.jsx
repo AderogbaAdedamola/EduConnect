@@ -14,6 +14,7 @@ export default function LogIn(){
             password: "",
         })
         const [errors, setErrors] = useState({})
+        const [loading, setLoading] = useState(false)
 
     const getFieldError = (name, value) =>{
         let error = "" ;
@@ -57,6 +58,41 @@ export default function LogIn(){
         return;
         }
         console.log("passed local errors")
+        setLoading(true)
+        logInUser(formData)
+    }
+
+    const API_URL = "http://localhost:5500/auth/user";
+
+    async function logInUser(logInInfo) {
+        try {
+            const response = await fetch(API_URL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(logInInfo),
+            });
+
+            // Check if the response is OK
+            if (!response.ok) {
+            throw new Error(`Server error: ${response.status}`);
+            }
+
+            // Parse the response JSON
+            const result = await response.json();
+
+            console.log("Signup successful:", result);
+            setLoading(false)
+            // You can display a success message or redirect the user
+            alert("Account created successfully!");
+
+            return result;
+        } catch (error) {
+            setLoading(false)
+            console.error("Signup failed:", error.message);
+            alert("Signup failed. Please try again.");
+        }
     }
     return(
         <section className="flex w-full font-sans min-h-dvh flex-col justify-center items-center text-white">
@@ -103,7 +139,9 @@ export default function LogIn(){
                     </button>
                 </span>
                 <a href="#" className="text-sm text-sky-700 text-right hover:underline hover:text-sky-500 ">Forgotten Password</a>
-                <button className="mt-5 w-full text-center bg-sky-700 hover:bg-sky-600 shadow-md/10 shadow-sky-500 rounded-lg p-2 cursor-pointer">Log In</button>
+                <button className="mt-5 w-full text-center bg-sky-700 hover:bg-sky-600 shadow-md/10 shadow-sky-500 rounded-lg p-2 cursor-pointer">
+                {loading ? "Logging In. . ." : "Log In"}
+                </button>
                 <p className="text-sm text-gray-500 text-right font-bold pt-1 account-text ">Don't have an account?{" "} 
                     <Link to="/SignUp" className="text-sm text-sky-700 text-right hover:underline hover:text-sky-500 ">Sign Up</Link></p>
             </form>
