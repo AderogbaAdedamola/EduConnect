@@ -29,23 +29,23 @@ function LandingPage() {
           <h1 className="text-lg font-semibold">EduConnect</h1>
         </div>
         <Link to="/LogIn">
-          <button className="text-sm text-gray-300 hover:text-white transition">Log In</button>
+          <button className="text-sm  bg-blue-600 hover:bg-blue-700 text-white font-medium px-5 py-2 rounded-lg transition">Log In</button>
         </Link>
       </header>
 
       {/* Hero Section */}
-      <section className="flex flex-col lg:flex-row items-center justify-between px-6 lg:px-20 py-12 space-y-10 lg:space-y-0">
-        <div className="max-w-xl text-center lg:text-left space-y-4" 
+      <section className="flex flex-col [@media(min-width:830px)]:flex-row items-center justify-between px-6 lg:px-20 py-12 space-y-10 lg:space-y-0">
+        <div className="max-w-xl text-center [@media(min-width:830px)]:text-left space-y-4" 
             data-aos="fade-right">
           <h2 className="text-3xl md:text-5xl font-bold leading-tight">
             Learn Together.{" "}
-            <span className="text-blue-400">Grow Faster.</span>
+            <p className="text-blue-400">Grow Faster.</p>
           </h2>
           <p className="text-gray-400 text-base md:text-lg">
             Share questions with your study group, get instant AI-powered grading,
             and master concepts with collaborative explanations.
           </p>
-          <div className="flex justify-center lg:justify-start space-x-4 pt-4">
+          <div className="flex justify-center [@media(min-width:830px)]:justify-start space-x-4 pt-4">
             <button className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-5 py-2 rounded-lg transition">
                 Get Started
               </button>
@@ -61,7 +61,7 @@ function LandingPage() {
           data-aos="fade-left"
           src={heroBg}
           alt="study"
-          className="w-64 md:w-80 rounded-xl lg:w-96 mx-auto"
+          className=" w-full max-w-100 [@media(min-width:830px)]:w-96 rounded-xl lg:w-100 mx-auto"
         />
       </section>
 
@@ -69,27 +69,35 @@ function LandingPage() {
       <section className="px-6 lg:px-20 py-10 grid grid-cols-1 md:grid-cols-2 gap-8">
         {[
           {
-            icon: <span className="material-symbols-outlined text-sm text-blue-500 font-bold">auto_awesome</span>,
-            color: "bg-blue-500/70",
+            // spakle star
+            // <span className="material-symbols-outlined text-sm text-blue-500 font-bold">auto_awesome</span>
+            icon: <span className="material-symbols-outlined text-[28px]" style={{fontVariationSettings:" 'FILL' 1"}}>psychology_alt</span>,
+            color: "text-purple-500",
+            bgColor: "bg-purple-500/10",
             title: "AI Grading & Explanations",
             text: "Get instant feedback on open-ended answers. Our AI breaks complex topics into simple explanations.",
           },
           {
-            icon: <BrainIcon className="w-10 h-10 text-blue-500"/>,
-            color: "bg-blue-500/70",
+            // <BrainIcon className="w-10 h-10 text-blue-500"/>
+
+            icon: <span className="material-symbols-outlined text-[28px]" style={{fontVariationSettings: " 'FILL' 1"}}>forum</span>,
+            color: "text-green-500",
+            bgColor: "bg-green-500/10",
             title: "Peer Feedback",
             text: "Allow peers to comment on submissions. Learn from different perspectives and approaches.",
           },
           {
-            icon: "🧾",
-            color: "bg-blue-500/10",
+            icon: <span className="material-symbols-outlined text-[28px]" style={{fontVariationSettings: " 'FILL' 1"}}>library_books</span>,
+            color: "text-orange-500",
+            bgColor: "bg-orange-500/10",
             title: "Submission Collection",
             text: "Easily collect answers from a wide audience. Perfect for teachers, tutors, or curious minds.",
           },
           {
-            icon: "📘",
-            color: "bg-blue-500/70",
-            title: "Study Group Collaboration",
+            icon: <span className="material-symbols-outlined text-[28px]" style={{fontVariationSettings:" 'FILL' 1"}}>share</span>,
+            color: "text-blue-500",
+            bgColor: "bg-blue-500/10",
+            title: "Share and Collaborate",
             text: "Create question sets and share them instantly with your study group using simple links or QR codes.",
           },
         ].map((feature, index) => (
@@ -99,7 +107,7 @@ function LandingPage() {
             className="bg-gray-900/60 border-2 border-gray-800 p-6 rounded-2xl hover:border-blue-500 hover:scale-[1.02] transition duration-1000 ease-in-out"
           >
             <div className="text-3xl " >
-              <span className={`p-1 rounded-full ${feature.color}`}>
+              <span className={`px-2 py-0.5 h-12 w-12 rounded-full ${feature.bgColor} ${feature.color}`}>
                 {feature.icon}
               </span>
               </div>

@@ -9,10 +9,13 @@ import appleIcon from "../assets/apple-icon.png"
 export default function SignUp(){
     const [showPassword, setShowPassword] = useState(false)
     const [formData, setFormData] = useState({
+        fullName: "",
         email: "",
         password: "",
+        confirmPassword: "",
     })
     const [errors, setErrors] = useState({})
+    const [loading, setLoading] = useState(false)
 
 
     const getFieldError = (name, value) =>{
@@ -64,14 +67,61 @@ export default function SignUp(){
         }
 
         console.log("now ready to connect to API")
+
+       const parts = formData.fullName.split(" ")
+        const newUser={
+            firstname: parts[0],
+            lastname: parts.splice(1).join(" ") || "",
+            email: formData.email,
+            password: formData.password,
+        }
+        console.log(newUser)
+        // Send sign-up data to the backend
+        setLoading(true)
+        signupUser(newUser)
+        
         
     }
+
+    // const API_URL = import.meta.env.VITE_API_URL + "/signup";
+    const API_URL = "http://localhost:3000/auth";
+
+    async function signupUser(newUser) {
+        try {
+            const response = await fetch(API_URL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(newUser),
+            });
+
+            // Check if the response is OK
+            if (!response.ok) {
+            throw new Error(`Server error: ${response.status}`);
+            }
+
+            // Parse the response JSON
+            const result = await response.json();
+
+            console.log("Signup successful:", result);
+            setLoading(false)
+            // You can display a success message or redirect the user
+            alert("Account created successfully!");
+
+            return result;
+        } catch (error) {
+            setLoading(false)
+            console.error("Signup failed:", error.message);
+            alert("Signup failed. Please try again.");
+        }
+    }
     return(
-        <section className="flex w-full min-h-dvh flex-col items-center">
+        <section className="flex font-sans min-h-dvh flex-col items-center">
             <h1 className="text-2xl/8 m-5">Create your account</h1>
             <p className="text-sm text-gray-500">Sign Up to get started</p>
 
-            <form onSubmit={handleSubmit} className="flex flex-col gap-3 max-w-110 w-70 p-2 ">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-3 w-full max-w-sm mx-auto p-4 ">
                  <InputField
                     type="text" 
                     placeholder="Full Name"
@@ -114,7 +164,9 @@ export default function SignUp(){
                     error={errors.confirmPassword}
                     onChange={handleChange}
                     />
-                <button className="my-5 w-full text-center bg-sky-700 hover:bg-sky-600 shadow-md/10 shadow-sky-500 rounded-lg p-2 cursor-pointer">Create Account</button>
+                <button className="my-5 w-full text-center bg-sky-700 hover:bg-sky-600 shadow-md/10 shadow-sky-500 rounded-lg p-2 cursor-pointer">
+                 {loading ? "Creating Account..." : "Create Account"}
+                </button>
             </form>
             <p className="bg-gray-950 text-gray-600 text-[0.8em]/7 translate-y-3.5 px-1">OR CONTINUE WITH</p>
             <hr className="text-slate-600 min-w-70"/>

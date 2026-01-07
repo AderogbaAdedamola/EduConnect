@@ -10,10 +10,8 @@ import appleIcon from "../assets/apple-icon.png"
 export default function LogIn(){
     const [showPassword, setShowPassword] = useState(false)
     const [formData, setFormData] = useState({
-            fullName: "",
             email: "",
             password: "",
-            confirmPassword: "",
         })
         const [errors, setErrors] = useState({})
 
@@ -61,7 +59,7 @@ export default function LogIn(){
         console.log("passed local errors")
     }
     return(
-        <section className="flex w-full min-h-dvh flex-col justify-center items-center text-white">
+        <section className="flex w-full font-sans min-h-dvh flex-col justify-center items-center text-white">
             <span></span>
            <span>
             <img src={logo} alt="Logo" className="w-40" />
@@ -71,7 +69,7 @@ export default function LogIn(){
             <h1 className="text-2xl/8 m-5">Welcome Back!</h1>
             <form 
                 onSubmit={getFormData}
-                className="flex flex-col justify-center max-w-110 w-70 p-2 relative">
+                className="flex flex-col justify-center w-full max-w-sm mx-auto p-4 relative">
                 <label htmlFor="email" className="text-sm text-left text-gray-300">Email or Username</label>                
                 <InputField 
                     type="text" 
