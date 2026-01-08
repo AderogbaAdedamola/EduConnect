@@ -5,6 +5,8 @@ import { Link } from "react-router-dom"
 import InputField from "../components/InputField"
 import googleIcon from "../assets/google-icon.png"
 import appleIcon from "../assets/apple-icon.png"
+import { api } from "../api/port"
+import { useNavigate } from "react-router-dom"
 
 export default function SignUp(){
     const [showPassword, setShowPassword] = useState(false)
@@ -16,6 +18,7 @@ export default function SignUp(){
     })
     const [errors, setErrors] = useState({})
     const [loading, setLoading] = useState(false)
+    const navigate = useNavigate()
 
 
     const getFieldError = (name, value) =>{
@@ -33,7 +36,7 @@ export default function SignUp(){
             if (!value) error = "password is required."
             else if(value.length < 8) error = "Password must be at least 8 characters." 
         }
-        if (name === "confirmPassword"){
+        if (name === "confirmPassword" && formData.password && formData.password.length > 8 ){
             if(!value) error = "confirm your password"
             else if (value !== formData.password) error = "password do not match"
         }
@@ -83,37 +86,40 @@ export default function SignUp(){
         
     }
 
-    // const API_URL = import.meta.env.VITE_API_URL + "/signup";
-    const API_URL = "http://localhost:5500/api/auth";
+    // const API_URL = import.meta.env.VITE_API_URL 
 
     async function signupUser(newUser) {
         try {
-            const response = await fetch(API_URL, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(newUser),
-            });
+            // POST request to /signup (baseURL is handled in axiosInstance)
+            const response = await api.post("/auth", newUser);
 
-            // Check if the response is OK
-            if (!response.ok) {
-            throw new Error(`Server error: ${response.status}`);
-            }
-
-            // Parse the response JSON
-            const result = await response.json();
-
-            console.log("Signup successful:", result);
-            setLoading(false)
-            // You can display a success message or redirect the user
+            // console.log("Signup successful:", response.data);
             alert("Account created successfully!");
-
-            return result;
+            setFormData({
+                fullName: "",
+                email: "",
+                password: "",
+                confirmPassword: "",
+            })
+            
+            navigate("/login")
+            // return response.data;
         } catch (error) {
-            setLoading(false)
-            console.error("Signup failed:", error.message);
-            alert("Signup failed. Please try again.");
+            console.error("Signup failed:", error);
+
+            if (error.response) {
+            // Server responded with a status outside 2xx
+            console.error("Server error:", error.response.status, error.response.data);
+            alert(error.response.data?.message || "Signup failed. Please try again.");
+            } else if (error.request) {
+            // No response received
+            alert("Check your connection.");
+            } else {
+            // Something else went wrong
+            alert("Unexpected error. Please try again.");
+            }
+        } finally {
+            setLoading(false);
         }
     }
     return(
@@ -128,13 +134,15 @@ export default function SignUp(){
                     name="fullName"
                     error={errors.fullName}
                     onChange={handleChange}
+                    value={formData.fullName}
                     />
                 <InputField
                     type="Email" 
-                    placeholder="johndoe@educon.com"
+                    placeholder="Email e.g johndoe@educon.com"
                     name="email"
                     error={errors.email}
                     onChange={handleChange}
+                    value={formData.email}
                     />
                 <span className=" relative">
                     <InputField 
@@ -143,6 +151,7 @@ export default function SignUp(){
                         name="password"
                         error={errors.password}
                         onChange={handleChange}
+                        value={formData.password}
                         />
                         <button
                             type="button"
@@ -163,6 +172,7 @@ export default function SignUp(){
                     name="confirmPassword"
                     error={errors.confirmPassword}
                     onChange={handleChange}
+                    value={formData.confirmPassword}
                     />
                 <button className="my-5 w-full text-center bg-sky-700 hover:bg-sky-600 shadow-md/10 shadow-sky-500 rounded-lg p-2 cursor-pointer">
                  {loading ? "Creating Account..." : "Create Account"}

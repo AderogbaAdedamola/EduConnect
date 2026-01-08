@@ -1,9 +1,10 @@
 
 
-export default function InputField({type, name, placeholder, onChange, error}){
+export default function InputField({type, name, placeholder, onChange, error, value}){
     return(
         <div className="flex flex-col">
             <input
+                    value={value}
                     type={type} 
                     name={name}
                     placeholder={placeholder}

@@ -1,20 +1,26 @@
 import { useState } from "react"
 import { Eye, EyeOff } from 'lucide-react'
 import logo from "../assets/educonnect-logo.png"
-import { Routes, Route, Link, BrowserRouter } from "react-router-dom"
+import { Routes, Route, Link, BrowserRouter, useNavigate, useLocation } from "react-router-dom"
 import InputField from "../components/InputField"
 import googleIcon from "../assets/google-icon.png"
 import appleIcon from "../assets/apple-icon.png"
+import { api } from "../api/port"
+import { useAuth } from "../context/AuthContext"
 
 
 export default function LogIn(){
+    const { setUser, setAccessToken } = useAuth()
     const [showPassword, setShowPassword] = useState(false)
     const [formData, setFormData] = useState({
             email: "",
             password: "",
         })
-        const [errors, setErrors] = useState({})
-        const [loading, setLoading] = useState(false)
+    const [errors, setErrors] = useState({})
+    const [loading, setLoading] = useState(false)
+    const navigate = useNavigate()
+    const location = useLocation()
+    const from = location.state?.from?.pathname || "/dashboard"
 
     const getFieldError = (name, value) =>{
         let error = "" ;
@@ -62,37 +68,57 @@ export default function LogIn(){
         logInUser(formData)
     }
 
-    const API_URL = "http://localhost:5500/auth/user";
-
     async function logInUser(logInInfo) {
         try {
-            const response = await fetch(API_URL, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(logInInfo),
-            });
+            const response = await api.post("/auth/user", {withCredentials: true}, logInInfo);
 
-            // Check if the response is OK
-            if (!response.ok) {
-            throw new Error(`Server error: ${response.status}`);
+            // console.log("Signup successful:", response.data);
+            alert("Log In Successful!");
+            setFormData({
+                email: "",
+                password: "",
+            })
+            setUser(res.data.user)
+            setAccessToken(res.data.accessToken)
+            navigate(from, { replace:true }) 
+        } catch (error) {
+            console.error("Login Error:", error);
+
+            if (error.response) {
+                const status = error.response.status;
+                const messageFromServer = error.response.data?.message;
+
+                console.error("Server Error:", status, messageFromServer);
+
+                if (status === 400) {
+                alert(messageFromServer || "Please check your credentials.");
+                } else if (status === 401) {
+                alert(messageFromServer || "Incorrect email or password.");
+                } else if (status === 403) {
+                alert(messageFromServer || "Access denied.");
+                } else if (status === 404) {
+                alert(messageFromServer || "Not found. Please try again later.");
+                } else if (status >= 500) {
+                alert("Please Check your internet connection or try again later.");
+                } else {
+                alert(messageFromServer || "An unexpected error try again later.");
+                }
             }
 
-            // Parse the response JSON
-            const result = await response.json();
+            else if (error.request) {
+                console.error("No Response:", error.request);
+                alert("Check your internet connection or try again.");
+            }
 
-            console.log("Signup successful:", result);
-            setLoading(false)
-            // You can display a success message or redirect the user
-            alert("Account created successfully!");
+            else {
+                console.error("Unexpected Error:", error.message);
+                alert("Something went wrong while processing your login. Please try again.");
+            }
 
-            return result;
-        } catch (error) {
-            setLoading(false)
-            console.error("Signup failed:", error.message);
-            alert("Signup failed. Please try again.");
+        } finally {
+        setLoading(false);
         }
+
     }
     return(
         <section className="flex w-full font-sans min-h-dvh flex-col justify-center items-center text-white">
@@ -110,10 +136,11 @@ export default function LogIn(){
                 <InputField 
                     type="text" 
                     id="email" 
-                    placeholder="johndoe@educon.com"
+                    placeholder="Email e.g johndoe@educon.com"
                     name="email"
                     error={errors.email}
                     onChange={handleChange}
+                    value={formData.email}
                     // className="bg-gray-900 placeholder:text-sm text-sm mb-7 mt-1 w-full border-gray-700 border-2 rounded-lg h-11 outline-0 p-2 "
                      />
                 <label htmlFor="password" className="text-sm mt-7 text-left text-gray-300">Password</label>
@@ -125,6 +152,7 @@ export default function LogIn(){
                         name="password"
                         error={errors.password}
                         onChange={handleChange}
+                        value={formData.password}
                         />
                     <button
                         type="button"

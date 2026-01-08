@@ -6,25 +6,29 @@ import LandingPage from "./pages/LandingPage"
 import Dashboard from "./pages/Dashboard"
 import ProtectedRoute from "./components/ProtectedRoute"
 import { AuthProvider } from "./context/AuthContext";
+import { attachInterceptors } from "./api/port"
 
 
 function App() {
   useEffect(() => {
-    if (false) {
-      localStorage.removeItem("token");
-      navigate("/LogIn");
-      return
-    }
-  }, []);
+    attachInterceptors(() => accessToken, setAccessToken, clearAuth);
+  }, [accessToken]);
   return (
     <BrowserRouter>
+       <AuthProvider>
       <Routes>
        <Route path="/"element={<LandingPage />} />
        <Route path="/LogIn"element={<LogIn />} />
        <Route path="/SignUp" element={<SignUp/>} />
-       <Route path="/dashboard" element={<Dashboard />} />
+           <Route path="/dashboard" element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+          } />
+       
        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
+       </AuthProvider>
    </BrowserRouter>
   )
 }
