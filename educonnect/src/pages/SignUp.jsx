@@ -93,7 +93,7 @@ export default function SignUp(){
             // POST request to /signup (baseURL is handled in axiosInstance)
             const response = await api.post("/auth", newUser);
 
-            // console.log("Signup successful:", response.data);
+            console.log("Signup successful:", response.data);
             alert("Account created successfully!");
             setFormData({
                 fullName: "",

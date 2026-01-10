@@ -5,32 +5,41 @@ import SignUp from "./pages/SignUp"
 import LandingPage from "./pages/LandingPage"
 import Dashboard from "./pages/Dashboard"
 import ProtectedRoute from "./components/ProtectedRoute"
-import { AuthProvider } from "./context/AuthContext";
-import { attachInterceptors } from "./api/port"
+import { AuthProvider, useAuth } from "./context/AuthContext"
 
 
-function App() {
-  useEffect(() => {
-    attachInterceptors(() => accessToken, setAccessToken, clearAuth);
-  }, [accessToken]);
+
+function AppContent() {
+  // const { accessToken, setAccessToken, clearAuth } = useAuth()
+
+  // useEffect(() => {
+  //   attachInterceptors(() => accessToken, setAccessToken, clearAuth);
+  // }, [accessToken, setAccessToken, clearAuth]);
   return (
-    <BrowserRouter>
-       <AuthProvider>
+    // <RedirectOnLogout>
       <Routes>
-       <Route path="/"element={<LandingPage />} />
-       <Route path="/LogIn"element={<LogIn />} />
-       <Route path="/SignUp" element={<SignUp/>} />
-           <Route path="/dashboard" element={
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
-          } />
-       
-       <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="/"element={<LandingPage />} />
+        <Route path="/LogIn"element={<LogIn />} />
+        <Route path="/SignUp" element={<SignUp/>} />
+            <Route path="/dashboard" element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+            } />
+        
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
-       </AuthProvider>
-   </BrowserRouter>
+    // </RedirectOnLogout>
   )
+}
+function App() {
+  return (
+    <AuthProvider>
+      <BrowserRouter>
+        <AppContent />
+      </BrowserRouter>
+    </AuthProvider>
+  );
 }
 
 export default App
