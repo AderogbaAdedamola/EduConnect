@@ -16,20 +16,19 @@ function AppContent() {
   //   attachInterceptors(() => accessToken, setAccessToken, clearAuth);
   // }, [accessToken, setAccessToken, clearAuth]);
   return (
-    // <RedirectOnLogout>
-      <Routes>
-        <Route path="/"element={<LandingPage />} />
-        <Route path="/LogIn"element={<LogIn />} />
-        <Route path="/SignUp" element={<SignUp/>} />
-            <Route path="/dashboard" element={
-                <ProtectedRoute>
-                  <Dashboard />
-                </ProtectedRoute>
-            } />
+    <Dashboard />
+      // <Routes>
+      //   <Route path="/"element={<LandingPage />} />
+      //   <Route path="/LogIn"element={<LogIn />} />
+      //   <Route path="/SignUp" element={<SignUp/>} />
+      //       <Route path="/dashboard" element={
+      //           <ProtectedRoute>
+      //             <Dashboard />
+      //           </ProtectedRoute>
+      //       } />
         
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
-    // </RedirectOnLogout>
+      //   <Route path="*" element={<Navigate to="/" replace />} />
+      // </Routes>
   )
 }
 function App() {

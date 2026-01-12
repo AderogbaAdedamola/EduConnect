@@ -1,6 +1,14 @@
 @import "tailwindcss";
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons+Round');
+
+
  @keyframes glow {
         0%, 100% {
           text-shadow:
@@ -24,4 +32,50 @@ animation: glow 3s infinite alternate;
 }
 body{
     font-family: "inter", sans-serif;
+}
+
+
+  @theme {
+    --color-primary: #2563eb;
+    --color-background-light: #f8fafc;
+    --color-background-dark: #0f172a;
+    --color-card-dark: #1e293b;
+    --color-accent-blue: #3b82f6;
+    --color-accent-orange: #f97316;
+    --color-accent-green: #10b981;
+    --color-accent-purple: #a855f7;
+    --color-accent-pink: #ec4899;
+  }
+
+  .sidebar-item-active {
+    @apply bg-[#2563eb]/10 text-[#2563eb] border-r-4 border-primary;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #334155;
+    border-radius: 10px;
+  }
+  .material-icons-round {
+      font-family: 'Material Icons Round';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 24px;
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+      -webkit-font-feature-settings: 'liga';
+      -webkit-font-smoothing: antialiased;
+    }
+@layer components {
+  .card {
+    @apply bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700/50 shadow-sm;
+  }
 }

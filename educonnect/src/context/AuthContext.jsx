@@ -6,6 +6,7 @@ const AuthContext = createContext();
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [accessToken, setAccessToken] = useState(null);
+  const [darkMode, setDarkMode] = useState(true);
 
   // Just a simple reset function — no backend call here
   const clearAuth = () => {
@@ -14,7 +15,15 @@ export function AuthProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, setUser, accessToken, setAccessToken, clearAuth }}>
+    <AuthContext.Provider value={{ 
+      user,
+      setUser,
+      accessToken,
+      setAccessToken,
+      clearAuth,
+      darkMode,
+      setDarkMode
+      }}>
       {children}
     </AuthContext.Provider>
   );

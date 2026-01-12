@@ -6,15 +6,20 @@ const useRefreshToken = () => {
 
     const refresh = async () => {
         // console.log(accessToken)
-        const response = await api.post("/auth/refresh" ,{},
-        { headers: { Authorization: `Bearer ${accessToken}` } }
+        const response = await api.post(
+        "/auth/refresh" ,
+        {},
+        { 
+            withCredentials: true,
+            headers: { "Content-Type": "application/json" } 
+        }
         );
-        setAccessToken(response.data.accessToken);
-        setUser(prev => prev);
+        setAccessToken(response?.data?.accessToken)
+        setUser(prev => prev)
 
         return response.data.accessToken;
     }
-    return refresh;
+    return refresh
 };
 
 export default useRefreshToken;

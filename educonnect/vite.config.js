@@ -9,5 +9,10 @@ export default defineConfig({
     react(),
     tailwindcss(),
     svgr(),
+  //   resolve: {
+  //   alias: {
+  //     '@mui/styled-engine': '@mui/styled-engine-sc',
+  //   },
+  // },
   ],
 })
