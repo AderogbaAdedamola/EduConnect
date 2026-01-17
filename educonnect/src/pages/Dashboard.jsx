@@ -3,14 +3,16 @@ import useRefreshToken from "../hooks/useRefresh"
 import { useEffect } from 'react';
 import StatCard from '../components/Dashboard/StatCard';
 import ResponseTrends from '../components/Dashboard/ResponseTrends';
-import AssignmentCard from '../components/Dashboard/AssignmentCard';
+import AssignmentCard from '../components/Dashboard/NeededAttention';
 import Recents from '../components/Dashboard/Recents';
 import Button from '../components/UI/Button';
 import Icon from '../components/common/Icon';
 import Sidebar from '../components/Layout/Sidebar';
 import Header from '../components/Layout/Header';
 import BottomNav from '../components/Layout/BottomNav';
+import { Share2, MessageSquare, Sparkles, TrendingUp, Copy, ExternalLink, Users, Clock, CheckCircle2, AlertCircle } from 'lucide-react';
 import { api } from "../api/port"
+import RenderNeededAttention from "../components/Dashboard/RenderNeededAttention"
 
 
 const DashboardBody = () => {
@@ -67,75 +69,60 @@ const DashboardBody = () => {
         buttonText: 'View Results',
         buttonVariant: 'secondary',
         },
-    ];
+    ]
     const stats = [
     { 
-        title: "My Questions", 
-        value: "8", 
-        icon: "help_outline",
-        description: "Questions you've asked"
+      title: "Questions Created", 
+      value: "12", 
+      icon: MessageSquare,
+      trend: "+3 this week",
+      color: "bg-blue-500"
     },
     { 
-        title: "My Answers", 
-        value: "24", 
-        icon: "reply",
-        description: "Responses you've given"
+      title: "Answers Given", 
+      value: "47", 
+      icon: CheckCircle2,
+      trend: "8 pending review",
+      color: "bg-green-500"
     },
     { 
-        title: "AI Evaluations", 
-        value: "18", 
-        icon: "smart_toy",
-        description: "Answers reviewed by AI"
+      title: "AI Responses", 
+      value: "89", 
+      icon: Sparkles,
+      trend: "AI helping you",
+      color: "bg-purple-500"
     },
     { 
-        title: "Accuracy", 
-        value: "92%", 
-        icon: "trending_up",
-        description: "Your answer accuracy"
+      title: "Engagement", 
+      value: "94%", 
+      icon: TrendingUp,
+      trend: "Great activity!",
+      color: "bg-orange-500"
     },
-    ];
+  ]
+  const renderStats = stats.map((stat, index) =>{
+    return(
+        <StatCard
+            key={index}
+            title={stat.title}
+            value={stat.value}
+            icon={stat.icon}
+            color={stat.color}
+            // iconColor="blue"
+            trend={stat.trend}
+        />
+    )
+  })
 
     return (
-        <div className="px-8 pb-12 space-y-8 max-w-7xl mx-auto">
+        <div className="px-8 font-sans pb-12 space-y-8 max-w-7xl mx-auto">
         {/* Stats & Chart Section */}
         <section className="grid grid-cols-1 xl:grid-cols-12 gap-6">
             {/* Stats Cards */}
             <div className="xl:col-span-5 grid grid-cols-1 sm:grid-cols-3 xl:grid-cols-1 gap-4">
-                {/* <button onClick={() => refresh()} className="bg-white text-slate-900 rounded-lg fixed top-1 z-222  border-slate-900 p-1 border"> 
-//                 Refresh
-//             </button> */}
-            <StatCard
-                title={stats[0].title}
-                value={stats[0].value}
-                icon={stats[0].icon}
-                iconColor="blue"
-                trend={stats[0].description}
-                trendColor="green"
-            />
-            <StatCard
-                title={stats[1].title}
-                value={stats[1].value}
-                icon={stats[1].icon}
-                iconColor="orange"
-                trend={stats[1].description}
-                trendColor="orange"
-            />
-            <StatCard
-                title={stats[2].title}
-                value={stats[2].value}
-                icon={stats[2].icon}
-                iconColor="emerald"
-                trend={stats[2].description}
-                trendColor="blue"
-            />
-            <StatCard
-                title={stats[3].title}
-                value={stats[3].value}
-                icon={stats[3].icon}
-                iconColor="purple"
-                trend={stats[3].description}
-                trendColor="purple"
-            />
+            {/* Stats */}
+            {renderStats }
+            
             </div>
 
             {/* Response Trend */}
@@ -145,23 +132,24 @@ const DashboardBody = () => {
         </section>
 
         {/* Needs Attention Section */}
-        <section>
-            <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold">Needs Attention</h2>
-            <button className="text-primary font-bold text-sm hover:underline"
-                    onClick={() =>refresh()}>
-                See All
-            </button>
+        <div>
+            <div className="flex items-center justify-between mb-4">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                <AlertCircle className="text-orange-500" />
+                Questions Needing Your Attention
+                </h2>
+                <button className="text-blue-600 dark:text-blue-400 font-semibold hover:underline">
+                View All
+                </button>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {assignments.map((assignment, index) => (
-                <AssignmentCard key={index} {...assignment} />
-            ))}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                {/* Needed Attention Question */}
+                <RenderNeededAttention />
             </div>
-        </section>
+      </div>
 
-        {/* Recent Assignments Section */}
+        {/* Recents Section */}
         <section>
             <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-bold">Recents</h2>
@@ -187,7 +175,7 @@ const DashboardBody = () => {
         <div className={`min-h-screen flex ${darkMode ? 'dark' : ''}`}>
         <div className="flex flex-col lg:flex-row w-full">
             <Sidebar />
-            <main className="flex-1 lg:ms-64 mb-10  lg:mb-0 overflow-y-auto custom-scrollbar bg-slate-50 dark:bg-[#0b0f19]">
+            <main className="flex-1 lg:ms-64 mb-10  lg:mb-0 overflow-y-auto custom-scrollbar bg-linear-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-slate-900">
             <Header darkMode={darkMode} setDarkMode={setDarkMode} />
             <DashboardBody />
             </main>

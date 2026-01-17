@@ -7,7 +7,7 @@ import { useAuth } from "../../context/AuthContext"
 const Header = ({ darkMode, setDarkMode }) => {
     const { user } = useAuth()
   return (
-    <header className="sticky top-0 z-10 bg-slate-50/80 dark:bg-[#0b0f19]/80 backdrop-blur-md px-8 py-6 flex items-center justify-between">
+    <header className="sticky top-0 z-10 bg-linear-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-slate-900 backdrop-blur-md px-8 py-6 flex items-center justify-between">
       <div>
         <p className="text-slate-500 dark:text-slate-400 text-sm font-medium">
           {new Date().toLocaleDateString('en-US', { 
