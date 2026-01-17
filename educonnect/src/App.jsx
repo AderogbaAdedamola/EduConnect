@@ -16,7 +16,10 @@ function AppContent() {
   //   attachInterceptors(() => accessToken, setAccessToken, clearAuth);
   // }, [accessToken, setAccessToken, clearAuth]);
   return (
-    <Dashboard />
+     <Routes>
+        <Route path="/dashboard" element={<Dashboard />}> </Route>
+        <Route path="*" element={<Navigate to="/dashboard" replace />} />
+     </Routes> 
       // <Routes>
       //   <Route path="/"element={<LandingPage />} />
       //   <Route path="/LogIn"element={<LogIn />} />

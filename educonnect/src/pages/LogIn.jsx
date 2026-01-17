@@ -5,7 +5,7 @@ import { Routes, Route, Link, BrowserRouter, useNavigate, useLocation } from "re
 import InputField from "../components/InputField"
 import googleIcon from "../assets/google-icon.png"
 import appleIcon from "../assets/apple-icon.png"
-import { axiosPrivate } from "../api/port"
+import { api } from "../api/port"
 import { useAuth } from "../context/AuthContext"
 
 
@@ -70,7 +70,12 @@ export default function LogIn(){
 
     async function logInUser(logInInfo) {
         try {
-            const response = await axiosPrivate.post("/auth/user", logInInfo);
+            const response = await api.post("/auth/user", logInInfo,
+            {
+                headers: { 'Content-Type': 'application/json' },
+                withCredentials: true,
+            }
+            );
 
             // console.log("Signup successful:", response.data);
             alert("Log In Successful!");

@@ -11,7 +11,6 @@ const useRefreshToken = () => {
         {},
         { 
             withCredentials: true,
-            headers: { "Content-Type": "application/json" } 
         }
         );
         setAccessToken(response?.data?.accessToken)

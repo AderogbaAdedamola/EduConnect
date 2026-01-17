@@ -1,8 +1,8 @@
 import { useAuth } from "../context/AuthContext"
 import useRefreshToken from "../hooks/useRefresh"
-import React from 'react';
+import { useEffect } from 'react';
 import StatCard from '../components/Dashboard/StatCard';
-import ResponseAnalytics from '../components/Dashboard/ResponseAnalytics';
+import ResponseTrends from '../components/Dashboard/ResponseTrends';
 import AssignmentCard from '../components/Dashboard/AssignmentCard';
 import Recents from '../components/Dashboard/Recents';
 import Button from '../components/UI/Button';
@@ -10,11 +10,30 @@ import Icon from '../components/common/Icon';
 import Sidebar from '../components/Layout/Sidebar';
 import Header from '../components/Layout/Header';
 import BottomNav from '../components/Layout/BottomNav';
+import { api } from "../api/port"
 
 
 const DashboardBody = () => {
-    const { user, darkMode, setDarkMode } = useAuth()
+    const { user, accessToken, darkMode, setDarkMode } = useAuth()
     const refresh = useRefreshToken()
+    useEffect(() =>{
+        const getData = async () => {
+           try{
+                const response = await api.get("/auth/user",
+                {
+                    headers:{
+                        Authorization: `Bearer ${accessToken}`
+                    }
+                })
+
+                console.log("successful")
+                console.log(response.data)
+            }catch(error){
+              console.error("Error :", error.response?.data || error.message )
+            }
+        }
+        getData()
+    }, [])
     const assignments = [
         {
         title: 'Biology 101',
@@ -49,10 +68,6 @@ const DashboardBody = () => {
         buttonVariant: 'secondary',
         },
     ];
-//     { title: "Active Questions", value: "12", icon: "question_answer" },
-//   { title: "Total Responses", value: "156", icon: "reply" },
-//   { title: "Response Rate", value: "78%", icon: "trending_up" },
-//   { title: "AI Evaluations", value: "124", icon: "smart_toy" },
     const stats = [
     { 
         title: "My Questions", 
@@ -73,7 +88,7 @@ const DashboardBody = () => {
         description: "Answers reviewed by AI"
     },
     { 
-        title: "Community Score", 
+        title: "Accuracy", 
         value: "92%", 
         icon: "trending_up",
         description: "Your answer accuracy"
@@ -125,7 +140,7 @@ const DashboardBody = () => {
 
             {/* Response Trend */}
             <div className="xl:col-span-7">
-            <ResponseAnalytics />
+            <ResponseTrends />
             </div>
         </section>
 
@@ -133,7 +148,8 @@ const DashboardBody = () => {
         <section>
             <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-bold">Needs Attention</h2>
-            <button className="text-primary font-bold text-sm hover:underline">
+            <button className="text-primary font-bold text-sm hover:underline"
+                    onClick={() =>refresh()}>
                 See All
             </button>
             </div>
