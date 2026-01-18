@@ -37,17 +37,19 @@ const RenderNeededAtention = () => {
     return(
         <>
             { needsAttention.map((item, index) =>{
-                    <NeededAttention
-                        key={index}
-                        title={item.title}
-                        code={item.code}
-                        responses={item.responses}
-                        newResponses={item.newResponses}
-                        aiEnabled={item.aiEnabled}
-                        category={item.category}
-                        timeAgo={item.timeAgo}
-                        status={item.status}
-                    />
+                    return (
+                        <NeededAttention
+                            key={index}
+                            title={item.title}
+                            code={item.code}
+                            responses={item.responses}
+                            newResponses={item.newResponses}
+                            aiEnabled={item.aiEnabled}
+                            category={item.category}
+                            timeAgo={item.timeAgo}
+                            status={item.status}
+                        />
+                    )
                 })}
         </>
     )

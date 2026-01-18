@@ -3,8 +3,7 @@ import useRefreshToken from "../hooks/useRefresh"
 import { useEffect } from 'react';
 import StatCard from '../components/Dashboard/StatCard';
 import ResponseTrends from '../components/Dashboard/ResponseTrends';
-import AssignmentCard from '../components/Dashboard/NeededAttention';
-import Recents from '../components/Dashboard/Recents';
+import RenderRecents from '../components/Dashboard/RenderRecents';
 import Button from '../components/UI/Button';
 import Icon from '../components/common/Icon';
 import Sidebar from '../components/Layout/Sidebar';
@@ -21,7 +20,7 @@ const DashboardBody = () => {
     useEffect(() =>{
         const getData = async () => {
            try{
-                const response = await api.get("/auth/user",
+                const response = await api.get("/profile",
                 {
                     headers:{
                         Authorization: `Bearer ${accessToken}`
@@ -36,40 +35,7 @@ const DashboardBody = () => {
         }
         getData()
     }, [])
-    const assignments = [
-        {
-        title: 'Biology 101',
-        subtitle: 'Cell Structure • Essay',
-        icon: 'biotech',
-        iconColor: 'indigo',
-        status: { text: 'Urgent', color: 'red' },
-        progress: 48,
-        progressLabel: '12/25 Graded',
-        buttonText: 'Grade Now',
-        buttonVariant: 'primary',
-        },
-        {
-        title: 'World History',
-        subtitle: 'The Great Depression • Quiz',
-        icon: 'public',
-        iconColor: 'amber',
-        status: { text: 'New', color: 'orange' },
-        progress: 16,
-        progressLabel: '5/30 Submissions',
-        buttonText: 'Grade Now',
-        buttonVariant: 'primary',
-        },
-        {
-        title: 'Perspective Drawing',
-        subtitle: 'Vanishing Points • Final',
-        icon: 'architecture',
-        iconColor: 'emerald',
-        progress: 93,
-        progressLabel: '28/30 Graded',
-        buttonText: 'View Results',
-        buttonVariant: 'secondary',
-        },
-    ]
+    
     const stats = [
     { 
       title: "Questions Created", 
@@ -116,52 +82,69 @@ const DashboardBody = () => {
 
     return (
         <div className="px-8 font-sans pb-12 space-y-8 max-w-7xl mx-auto">
-        {/* Stats & Chart Section */}
-        <section className="grid grid-cols-1 xl:grid-cols-12 gap-6">
-            {/* Stats Cards */}
-            <div className="xl:col-span-5 grid grid-cols-1 sm:grid-cols-3 xl:grid-cols-1 gap-4">
-            {/* Stats */}
-            {renderStats }
-            
-            </div>
+            {/* Stats & Chart Section */}
+            <section className="grid grid-cols-1 xl:grid-cols-12 gap-6">
+                {/* Stats Cards */}
+                <div className="xl:col-span-5 grid grid-cols-1 sm:grid-cols-3 xl:grid-cols-1 gap-4">
+                    {/* Stats */}
+                    {renderStats }
+                </div>
 
-            {/* Response Trend */}
-            <div className="xl:col-span-7">
-            <ResponseTrends />
-            </div>
+                {/* Response Trend */}
+                {/* <div className="xl:col-span-7">
+                <ResponseTrends />
+                </div> */}
+            </section>
+
+            {/* Needs Attention Section */}
+            <section>
+                <div className="flex items-center justify-between mb-4">
+                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                    <AlertCircle className="text-orange-500" />
+                    Questions Needing Your Attention
+                    </h2>
+                    <button className="text-blue-600 dark:text-blue-400 font-semibold hover:underline">
+                    View All
+                    </button>
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    {/* Needed Attention Question */}
+                    <RenderNeededAttention />
+                </div>
         </section>
 
-        {/* Needs Attention Section */}
-        <div>
-            <div className="flex items-center justify-between mb-4">
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                <AlertCircle className="text-orange-500" />
-                Questions Needing Your Attention
+            {/* Recents Section */}
+            <section>
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                    <Clock className="text-blue-500" />
+                    Recent Activity
                 </h2>
-                <button className="text-blue-600 dark:text-blue-400 font-semibold hover:underline">
-                View All
+                <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 overflow-hidden">
+                    {/* Recents Activities */}
+                    <RenderRecents />
+                </div>
+            </section>
+            {/* Quick Actions */}
+            <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="bg-linear-to-br from-blue-600 to-blue-700 rounded-2xl p-6 text-white shadow-xl">
+                <Share2 size={32} className="mb-4" />
+                <h3 className="text-xl font-bold mb-2">Share a Question</h3>
+                <p className="text-blue-100 mb-4">Create and share questions with your study group or audience</p>
+                <button className="bg-white text-blue-600 px-6 py-2.5 rounded-xl font-semibold hover:bg-blue-50 transition-colors">
+                    Get Started
                 </button>
-            </div>
+                </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                {/* Needed Attention Question */}
-                <RenderNeededAttention />
-            </div>
-      </div>
-
-        {/* Recents Section */}
-        <section>
-            <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold">Recents</h2>
-            <div className="flex items-center gap-4">
-                <button className="p-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
-                <Icon name="filter_list" className="text-slate-600 dark:text-slate-300" />
+                <div className="bg-linear-to-br from-purple-600 to-purple-700 rounded-2xl p-6 text-white shadow-xl">
+                <MessageSquare size={32} className="mb-4" />
+                <h3 className="text-xl font-bold mb-2">Answer Questions</h3>
+                <p className="text-purple-100 mb-4">Help others by answering questions in your expertise area</p>
+                <button className="bg-white text-purple-600 px-6 py-2.5 rounded-xl font-semibold hover:bg-purple-50 transition-colors">
+                    Browse Questions
                 </button>
-            </div>
-            </div>
-
-            <Recents />
-        </section>
+                </div>
+            </section>
         </div>
     );
     };

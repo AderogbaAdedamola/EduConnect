@@ -12,6 +12,7 @@ const Button = ({
   onClick,
   className = '',
   disabled = false,
+  iconStyle,
 }) => {
   const baseStyles = 'font-bold transition-all rounded-2xl flex items-center justify-center gap-2';
   
@@ -41,9 +42,9 @@ const Button = ({
         ${className}
       `}
     >
-      {icon && iconPosition === 'left' && <Icon name={icon} />}
+      {icon && iconPosition === 'left' && <Icon className={iconStyle}  name={icon} />}
       {children}
-      {icon && iconPosition === 'right' && <Icon name={icon} />}
+      {icon && iconPosition === 'right' && <Icon className={iconStyle} name={icon} />}
     </button>
   );
 };

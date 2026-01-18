@@ -4,11 +4,11 @@ import Icon from '../common/Icon';
 
 const BottomNav = () => {
   const navItems = [
-    { icon: 'dashboard', label: 'Dashboard', active: true },
-    { icon: 'add', label: 'Create' },
-    { icon: 'auto_awesome', label: 'Response' },
+    { icon: 'layout-dashboard', label: 'Dashboard', active: true },
+    { icon: 'message-square-plus', label: 'Create' },
+    { icon: 'sparkles', label: 'Response' },
     { icon: 'history', label: 'History' },
-    { icon: 'class', label: 'Answer' },
+    { icon: 'notebook-pen', label: 'Answer' },
     // { icon: 'settings', label: 'Settings' },
   ];
 

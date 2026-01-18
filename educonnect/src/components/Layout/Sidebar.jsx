@@ -4,11 +4,11 @@ import Icon from '../common/Icon';
 
 const Sidebar = () => {
   const menuItems = [
-    { icon: 'dashboard', label: 'Dashboard', active: true },
-    { icon: 'add', label: 'Create Question' },
-    { icon: 'auto_awesome', label: 'Response' },
+    { icon: 'layout-dashboard', label: 'Dashboard', active: true },
+    { icon: 'message-square-plus', label: 'Create Question' },
+    { icon: 'sparkles', label: 'Response' },
     { icon: 'history', label: 'History' },
-    { icon: 'class', label: 'Answer Questions ' },
+    { icon: 'notebook-pen', label: 'Answer Questions' },
   ];
 
   const bottomItems = [
@@ -16,12 +16,12 @@ const Sidebar = () => {
   ];
 
   return (
-    <aside className="hidden max-h-screen fixed left-0 top-0 bottom-0 lg:flex w-64 border-r border-slate-200 dark:border-slate-800 flex-col bg-white dark:bg-[#0f172a]">
+    <aside className="hidden max-h-screen fixed left-0 top-0 bottom-0 lg:flex w-64 border-r border-slate-200 dark:border-slate-800 flex-col bg-linear-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-slate-900">
       {/* Logo */}
       <div className="p-8">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
-            <Icon name="school" className="text-white" />
+            <Icon name="graduation-cap" className="text-white size-7" />
           </div>
           <span className="text-xl font-bold tracking-tight">EduConnect</span>
         </div>
