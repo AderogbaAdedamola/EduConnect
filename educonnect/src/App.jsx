@@ -6,6 +6,9 @@ import LandingPage from "./pages/LandingPage"
 import Dashboard from "./pages/Dashboard"
 import ProtectedRoute from "./components/ProtectedRoute"
 import { AuthProvider, useAuth } from "./context/AuthContext"
+import ForgetPassword from "./pages/ForgetPassword"
+import CreateQuestion from "./pages/CreateQuestion"
+import TestCreate from "./pages/TestCreate"
 
 
 
@@ -16,14 +19,14 @@ function AppContent() {
   //   attachInterceptors(() => accessToken, setAccessToken, clearAuth);
   // }, [accessToken, setAccessToken, clearAuth]);
   return (
-     <Routes>
-        <Route path="/dashboard" element={<Dashboard />}> </Route>
-        <Route path="*" element={<Navigate to="/dashboard" replace />} />
-     </Routes> 
+      <Routes>
+          <Route path="/"element={<CreateQuestion />} />
+      </Routes>
       // <Routes>
       //   <Route path="/"element={<LandingPage />} />
       //   <Route path="/LogIn"element={<LogIn />} />
       //   <Route path="/SignUp" element={<SignUp/>} />
+      //   <Route path="/forget-password" element={<ForgetPassword />} />
       //       <Route path="/dashboard" element={
       //           <ProtectedRoute>
       //             <Dashboard />
@@ -32,6 +35,7 @@ function AppContent() {
         
       //   <Route path="*" element={<Navigate to="/" replace />} />
       // </Routes>
+
   )
 }
 function App() {

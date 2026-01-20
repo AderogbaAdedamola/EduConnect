@@ -60,14 +60,19 @@ const Sidebar = () => {
 
         {/* User Profile Card */}
         <div className="mt-4 p-4 bg-slate-100 dark:bg-slate-800 rounded-2xl flex items-center gap-3">
-          <img
+          <div className="flex">
+            <button className="w-10 h-10 bg-linear-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-xl font-bold  border dark:border-slate-200 border-slate-700  shadow-sm hover:shadow-md transition-shadow">
+              {"A"}
+            </button>
+          </div>
+          {/* <img
             alt="User profile"
             className="w-10 h-10 rounded-full border-2 border-primary"
             src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGQvJ3K1SAKC8AXX0KwJffiJwYLz7NO4W2OS69E4gXzqJ4_7TAoklxjSZqInbMUa4IoHUhxsxPUBzN52tkcWec1Xd3VKYRe9fEQ23xSihCycn2hrynSH8_Xn6d_lV2afRlFrCL56XduSvSKiq5jJ0DuYz6Ay48i3NBC59LGyoDsjKV1Tejjs_LMClY8oQ6_XLJzDJdjktysks_B9dPZVTu2iwwnbyC4d5qxQj-dcZWLAIZ8auOin8BnYOotykFeM_mMUni7WgnmKGx"
-          />
+          /> */}
           <div className="overflow-hidden">
-            <p className="text-sm font-bold truncate">Prof. Adedamola</p>
-            <p className="text-xs text-slate-500 truncate">Computer Scientist</p>
+            <p className="text-sm font-bold truncate">Adedamola</p>
+            <p className="text-xs text-slate-500 truncate">...</p>
           </div>
         </div>
       </div>

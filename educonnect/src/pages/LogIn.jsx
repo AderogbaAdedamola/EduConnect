@@ -127,7 +127,7 @@ export default function LogIn(){
 
     }
     return(
-        <section className="flex w-full font-sans min-h-dvh flex-col justify-center items-center text-white">
+        <section className="flex w-full font-sans min-h-dvh flex-col justify-center items-center text-slate-800 dark:text-white">
             <span></span>
            <span>
             <img src={logo} alt="Logo" className="w-40" />
@@ -138,7 +138,7 @@ export default function LogIn(){
             <form 
                 onSubmit={getFormData}
                 className="flex flex-col justify-center w-full max-w-sm mx-auto p-4 relative">
-                <label htmlFor="email" className="text-sm text-left text-gray-300">Email or Username</label>                
+                <label htmlFor="email" className="text-sm text-left text-gray-500 dark:text-gray-300">Email or Username</label>                
                 <InputField 
                     type="text" 
                     id="email" 
@@ -149,7 +149,7 @@ export default function LogIn(){
                     value={formData.email}
                     // className="bg-gray-900 placeholder:text-sm text-sm mb-7 mt-1 w-full border-gray-700 border-2 rounded-lg h-11 outline-0 p-2 "
                      />
-                <label htmlFor="password" className="text-sm mt-7 text-left text-gray-300">Password</label>
+                <label htmlFor="password" className="text-sm mt-7 text-left text-gray-500 dark:text-gray-300">Password</label>
                 <span className=" relative">
                     <InputField 
                         type={showPassword ? "text" : "password"} 
@@ -172,21 +172,21 @@ export default function LogIn(){
                         )}
                     </button>
                 </span>
-                <a href="#" className="text-sm text-sky-700 text-right hover:underline hover:text-sky-500 ">Forgotten Password</a>
-                <button className="mt-5 w-full text-center bg-sky-700 hover:bg-sky-600 shadow-md/10 shadow-sky-500 rounded-lg p-2 cursor-pointer">
+                <Link to="/forget-password" className="text-sm text-sky-700 text-right hover:underline hover:text-sky-500 ">Forgotten Password</Link>
+                <button className="mt-5 w-full text-center bg-sky-500 dark:bg-sky-700 hover:bg-sky-400 dark:hover:bg-sky-600 shadow-md/10 shadow-sky-500 rounded-lg p-2 cursor-pointer">
                 {loading ? "Logging In. . ." : "Log In"}
                 </button>
-                <p className="text-sm text-gray-500 text-right font-bold pt-1 account-text ">Don't have an account?{" "} 
+                <p className="text-sm text-gray-800 dark:text-gray-500 text-right font-bold pt-1 account-text ">Don't have an account?{" "} 
                     <Link to="/SignUp" className="text-sm text-sky-700 text-right hover:underline hover:text-sky-500 ">Sign Up</Link></p>
             </form>
-            <p className="bg-gray-950 text-gray-600 text-[0.8em]/7 translate-y-3.5 px-1">OR LOGIN WITH</p>
-            <hr className="text-slate-600 min-w-70"/>
+            <p className="bg-linear-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-slate-900 text-slate-600 dark:text-slate-100 text-[0.8em]/7 translate-y-3.5 px-1">OR LOGIN WITH</p>
+            <hr className="text-slate-600 dark:text-slate-100 min-w-70"/>
             <div className="flex gap-1 mt-6 justify-center min-w-70">
-                <button className="flex justify-center gap-2 mx-1 grow bg-gray-700 hover:bg-gray-600 shadow-md/10 rounded-lg p-1.5 cursor-pointer">
+                <button className="flex justify-center gap-2 mx-1 grow bg-gray-200 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 shadow-md/10 rounded-lg p-1.5 cursor-pointer">
                     <img src={googleIcon} alt="" className="size-6 "/>
                     <span>Google</span>
                 </button>
-                <button className="flex justify-center gap-2 mx-1 grow bg-gray-700 hover:bg-gray-600 shadow-md/10 rounded-lg p-1.5 cursor-pointer">
+                <button className="flex justify-center gap-2 mx-1 grow bg-gray-200 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 shadow-md/10 rounded-lg p-1.5 cursor-pointer">
                     <img src={appleIcon} alt="" className="size-6 "/>
                     <span>Apple</span>
                 </button>

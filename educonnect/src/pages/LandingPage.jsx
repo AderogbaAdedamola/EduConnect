@@ -21,15 +21,15 @@ function LandingPage() {
   }, [location.pathname])
 
   return (
-    <div className="min-h-screen bg-[#0F172A] font-sans text-white font-inter">
+    <div className="min-h-screen font-sans bg-linear-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-slate-900 text-slate-800 dark:text-white">
       {/* Navbar */}
-      <header className="flex justify-between items-center px-6 py-4 border-b border-gray-800">
+      <header className="flex justify-between items-center px-6 py-4 border-b border-gray-200 dark:border-gray-800">
         <div className="flex items-center space-x-2">
           <img src={logo} alt="Logo" className="size-7"/>
           <h1 className="text-lg font-semibold">EduConnect</h1>
         </div>
         <Link to="/LogIn">
-          <button className="text-sm  bg-blue-600 hover:bg-blue-700 text-white font-medium px-5 py-2 rounded-lg transition">Log In</button>
+          <button className="text-sm bg-blue-500 dark:bg-blue-600 hover:bg-blue-600 dark:hover:bg-blue-700 text-white font-medium px-5 py-2 rounded-lg transition">Log In</button>
         </Link>
       </header>
 
@@ -39,16 +39,18 @@ function LandingPage() {
             data-aos="fade-right">
           <h2 className="text-3xl md:text-5xl font-bold leading-tight">
             Learn Together.{" "}
-            <p className="text-blue-400">Grow Faster.</p>
+            <p className="text-blue-600 dark:text-blue-400">Grow Faster.</p>
           </h2>
-          <p className="text-gray-400 text-base md:text-lg">
+          <p className="text-gray-700 dark:text-gray-400 text-base md:text-lg">
             Share questions with your study group, get instant AI-powered grading,
             and master concepts with collaborative explanations.
           </p>
           <div className="flex justify-center [@media(min-width:830px)]:justify-start space-x-4 pt-4">
-            <button className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-5 py-2 rounded-lg transition">
+            <Link to="/signup">
+              <button className="bg-blue-500 dark:bg-blue-600 hover:bg-blue-600 dark:hover:bg-blue-700 text-white font-medium px-5 py-2 rounded-lg transition">
                 Get Started
               </button>
+            </ Link>
               {/* <button className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-5 py-2 rounded-lg transition">
                 Create
               </button>
@@ -104,7 +106,7 @@ function LandingPage() {
           <div
             key={index}
             data-aos="fade-up"
-            className="bg-gray-900/60 border-2 border-gray-800 p-6 rounded-2xl hover:border-blue-500 hover:scale-[1.02] transition duration-1000 ease-in-out"
+            className="bg-gray-200/60 dark:bg-gray-900/60 border-2 border-gray-300 dark:border-gray-800 p-6 rounded-2xl shadow-lg/20 dark:shadow-md/20 hover:border-blue-500 hover:scale-[1.02] transition duration-1000 ease-in-out"
           >
             <div className="text-3xl " >
               <span className={`px-2 py-0.5 h-12 w-12 rounded-full ${feature.bgColor} ${feature.color}`}>
@@ -112,7 +114,7 @@ function LandingPage() {
               </span>
               </div>
             <h3 className="mt-4 text-xl font-semibold">{feature.title}</h3>
-            <p className="mt-2 text-gray-400 text-sm">{feature.text}</p>
+            <p className="mt-2 text-gray-700 dark:text-gray-400 text-sm">{feature.text}</p>
           </div>
         ))}
       </section>
@@ -169,15 +171,15 @@ function LandingPage() {
       <section className="px-6 lg:px-20 py-14 text-center">
         <div 
           data-aos="fade-down"
-          className="bg-gray-900/60 border-2 border-gray-800 p-10 rounded-2xl max-w-2xl mx-auto">
+          className="bg-gray-200/60 dark:bg-gray-900/60 border-2 border-gray-300 dark:border-gray-800 shadow-lg/20 dark:shadow-md/20 p-10 rounded-2xl max-w-2xl mx-auto">
           <h2 className="text-2xl md:text-3xl font-bold mb-3">
             Ready to ace your next exam?
           </h2>
-          <p className="text-gray-400 mb-6" >
+          <p className="text-gray-700 dark:text-gray-400 mb-6" >
             Join students and tutors sharing knowledge on EduConnect.
           </p>
           <Link to="/signup">
-            <button className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-3 rounded-lg transition-all">
+            <button className="bg-blue-500 dark:bg-blue-600 hover:bg-blue-600 dark:hover:bg-blue-700 text-white font-medium px-6 py-3 rounded-lg transition-all">
               Get Started
             </button>
           </Link>
@@ -185,7 +187,7 @@ function LandingPage() {
       </section>
 
       {/* Footer */}
-      <footer className="text-center text-gray-500 text-sm py-6 border-t border-gray-800">
+      <footer className="text-center text-gray-700 dark:text-gray-500 text-sm py-6 border-t border-gray-200 dark:border-gray-800">
         © {new Date().getFullYear()} EduConnect. All rights reserved.
       </footer>
     </div>

@@ -125,7 +125,7 @@ export default function SignUp(){
     return(
         <section className="flex font-sans min-h-dvh flex-col items-center">
             <h1 className="text-2xl/8 m-5">Create your account</h1>
-            <p className="text-sm text-gray-500">Sign Up to get started</p>
+            <p className="text-sm text-gray-800 dark:text-gray-500">Sign Up to get started</p>
 
             <form onSubmit={handleSubmit} className="flex flex-col gap-3 w-full max-w-sm mx-auto p-4 ">
                  <InputField
@@ -174,23 +174,23 @@ export default function SignUp(){
                     onChange={handleChange}
                     value={formData.confirmPassword}
                     />
-                <button className="my-5 w-full text-center bg-sky-700 hover:bg-sky-600 shadow-md/10 shadow-sky-500 rounded-lg p-2 cursor-pointer">
+                <button className="my-5 w-full text-center bg-sky-500 dark:bg-sky-700 hover:bg-sky-400 dark:hover:bg-sky-600 shadow-md/10 shadow-sky-500 rounded-lg p-2 cursor-pointer">
                  {loading ? "Creating Account..." : "Create Account"}
                 </button>
             </form>
-            <p className="bg-gray-950 text-gray-600 text-[0.8em]/7 translate-y-3.5 px-1">OR CONTINUE WITH</p>
-            <hr className="text-slate-600 min-w-70"/>
+            <p className="bg-linear-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-slate-900 dark:text-slate-100 text-slate-600 text-[0.8em]/7 translate-y-3.5 px-1">OR CONTINUE WITH</p>
+            <hr className="dark:text-slate-100 text-slate-600 min-w-70"/>
             <div className="flex gap-1 mt-6 justify-center min-w-70">
-                <button className="flex justify-center gap-2 mx-1 grow  text-center bg-gray-700 hover:bg-gray-600 shadow-md/10 rounded-lg p-1.5 cursor-pointer">
+                <button className="flex justify-center gap-2 mx-1 grow  text-center bg-gray-200 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 shadow-md/10 rounded-lg p-1.5 cursor-pointer">
                     <img src={googleIcon} alt="" className="size-6 "/>
                     <span>Google</span>
                 </button>
-                <button className="flex justify-center gap-2 mx-1 grow text-center bg-gray-700 hover:bg-gray-600 shadow-md/10 rounded-lg p-1.5 cursor-pointer">
+                <button className="flex justify-center gap-2 mx-1 grow text-center bg-gray-200 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 shadow-md/10 rounded-lg p-1.5 cursor-pointer">
                     <img src={appleIcon} alt="" className="size-6 "/>
                     <span>Apple</span>
                 </button>
             </div>
-        <p className="text-sm w-70 translate-y-10 text-gray-500 text-right font-bold pt-1 account-text">Already a member? <Link to="/LogIn" className="text-sm text-sky-700 text-right hover:underline hover:text-sky-500 ">Sign In</Link></p>
+            <p className="text-sm w-70 mt-3 text-gray-800 dark:text-gray-500 text-right font-bold pt-1 account-text">Already a member? <Link to="/LogIn" className="text-sm text-sky-700 text-right hover:underline hover:text-sky-500 ">Sign In</Link></p>
         </section>
     )
 }

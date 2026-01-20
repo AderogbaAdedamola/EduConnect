@@ -83,9 +83,9 @@ const DashboardBody = () => {
     return (
         <div className="px-8 font-sans pb-12 space-y-8 max-w-7xl mx-auto">
             {/* Stats & Chart Section */}
-            <section className="grid grid-cols-1 xl:grid-cols-12 gap-6">
+            <section className="grid grid-cols-1 gap-6">
                 {/* Stats Cards */}
-                <div className="xl:col-span-5 grid grid-cols-1 sm:grid-cols-3 xl:grid-cols-1 gap-4">
+                <div className="xl:col-span-5 w-full grid grid-cols-1 sm:grid-cols-3 xl:grid-cols-4 xl:grid-cols-1 gap-4">
                     {/* Stats */}
                     {renderStats }
                 </div>
@@ -101,9 +101,10 @@ const DashboardBody = () => {
                 <div className="flex items-center justify-between mb-4">
                     <h2 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
                     <AlertCircle className="text-orange-500" />
-                    Questions Needing Your Attention
+                        Questions Needing Your Attention
                     </h2>
-                    <button className="text-blue-600 dark:text-blue-400 font-semibold hover:underline">
+                    <button className="text-blue-600 dark:text-blue-400 font-semibold hover:underline"
+                            onClick={() => refresh()}>
                     View All
                     </button>
                 </div>

@@ -1,18 +1,74 @@
 
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react"
 
-const AuthContext = createContext();
+const AuthContext = createContext()
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [accessToken, setAccessToken] = useState(null);
-  const [darkMode, setDarkMode] = useState(true);
+  const [accessToken, setAccessToken] = useState(null)
+  const [darkMode, setDarkMode] = useState(false)
 
   // Just a simple reset function — no backend call here
   const clearAuth = () => {
     setUser(null);
     setAccessToken(null);
   };
+
+ // Read DARKMODE from the system
+  // useEffect(() =>{
+  //   document.documentElement.classList.toggle(
+  //       "dark",
+  //       localStorage.theme === "dark" ||
+  //         (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches),
+  //     )
+  //     setDarkMode(
+  //       localStorage.theme === "dark" ||
+  //         (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matchees)
+  //       )
+  // },[])
+
+  // //Toggle Theme
+  // const toggleTheme =() =>{
+  // // Read CURRENT state from DOM, not React state
+  //   const currentIsDark = document.documentElement.classList.contains('dark');
+  //   const newDarkMode = !darkMode;
+    
+  //   if(newDarkMode){
+  //     localStorage.setItem("theme", "dark");
+  //     document.documentElement.classList.add('dark');
+  //     setDarkMode(true)
+  //     console.log("dark mode ON");
+  //   } else {
+  //     localStorage.setItem("theme", "light");
+  //     document.documentElement.classList.remove('dark');
+  //     setDarkMode(false)
+  //     console.log("light mode ON");
+  //   }     
+  //   }
+
+  // useEffect(() => {
+  //   const root = document.documentElement;
+  //   if (theme === 'dark') {
+  //     root.classList.add('dark');
+  //   } else {
+  //     root.classList.remove('dark');
+  //   }
+  //   localStorage.setItem('theme', theme);
+  // }, [theme]);
+
+  // // Listen for system changes (only when no explicit choice)
+  // useEffect(() => {
+  //   const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    
+  //   const handleChange = () => {
+  //     if (!localStorage.getItem('theme')) {
+  //       setTheme(mediaQuery.matches ? 'dark' : 'light');
+  //     }
+  //   };
+    
+  //   mediaQuery.addEventListener('change', handleChange);
+  //   return () => mediaQuery.removeEventListener('change', handleChange);
+  // }, []);
 
   return (
     <AuthContext.Provider value={{ 
@@ -22,7 +78,8 @@ export function AuthProvider({ children }) {
       setAccessToken,
       clearAuth,
       darkMode,
-      setDarkMode
+      setDarkMode,
+      // toggleTheme
       }}>
       {children}
     </AuthContext.Provider>
