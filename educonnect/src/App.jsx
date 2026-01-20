@@ -20,7 +20,7 @@ function AppContent() {
   // }, [accessToken, setAccessToken, clearAuth]);
   return (
       <Routes>
-          <Route path="/"element={<CreateQuestion />} />
+          <Route path="/create-question"element={<CreateQuestion />} />
       </Routes>
       // <Routes>
       //   <Route path="/"element={<LandingPage />} />

@@ -67,7 +67,7 @@ export default function QuestionCard({ question, index, questionType, onUpdate, 
           <select
             value={question.type}
             onChange={(e) => onUpdate(index, 'type', e.target.value)}
-            className="w-full bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500 text-slate-900 dark:text-white"
+            className="w-full bg-white dark:bg-slate-800 border font-sans border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500 text-slate-900 dark:text-white"
           >
             <option value="mcq">Multiple Choice</option>
             <option value="text">Text Input</option>
@@ -92,7 +92,7 @@ export default function QuestionCard({ question, index, questionType, onUpdate, 
                   name={`question-${question.id}`}
                   checked={question.correctAnswer === optIndex}
                   onChange={() => onUpdate(index, 'correctAnswer', optIndex)}
-                  className="w-4 h-4 text-blue-600 mt-3 flex-shrink-0 cursor-pointer"
+                  className="w-4 h-4 text-blue-600 mt-3 shrink-0 cursor-pointer"
                 />
                 
                 {/* Option input */}
@@ -108,7 +108,7 @@ export default function QuestionCard({ question, index, questionType, onUpdate, 
                 {question.options.length > 2 && (
                   <button
                     onClick={() => removeOption(optIndex)}
-                    className="text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 p-2 rounded-lg transition-colors flex-shrink-0"
+                    className="text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 p-2 rounded-lg transition-colors shrink-0"
                     title="Remove option"
                   >
                     <Icon name="x" />

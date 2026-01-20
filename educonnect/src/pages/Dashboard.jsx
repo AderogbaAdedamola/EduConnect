@@ -85,7 +85,7 @@ const DashboardBody = () => {
             {/* Stats & Chart Section */}
             <section className="grid grid-cols-1 gap-6">
                 {/* Stats Cards */}
-                <div className="xl:col-span-5 w-full grid grid-cols-1 sm:grid-cols-3 xl:grid-cols-4 xl:grid-cols-1 gap-4">
+                <div className="xl:col-span-5 w-full grid grid-cols-1 sm:grid-cols-3 xl:grid-cols-4 gap-4">
                     {/* Stats */}
                     {renderStats }
                 </div>

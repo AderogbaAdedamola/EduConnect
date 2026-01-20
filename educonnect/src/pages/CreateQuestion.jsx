@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import WizardHeader from '../components/CreateQuestion/WizardHeader'
 import WizardFooter from '../components/CreateQuestion/WizardFooter'
@@ -12,7 +12,7 @@ import BottomNav from "../components/Layout/BottomNav"
 
  function CreateQuestionBody() {
   const navigate = useNavigate();
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState(1)
   
   // Form data state
   const [formData, setFormData] = useState({
@@ -33,27 +33,29 @@ import BottomNav from "../components/Layout/BottomNav"
       setCurrentStep(currentStep + 1);
     } else {
       // Handle finish/publish
-      console.log('Publishing:', formData);
+      console.log('Publishing:', formData)
       // TODO: Send to API
+      //If API response is success
+      localStorage.removeItem("formData")  
     }
   };
 
   const handleBack = () => {
     if (currentStep > 1) {
-      setCurrentStep(currentStep - 1);
+      setCurrentStep(currentStep - 1)
     }
-  };
+  }
 
   const handleCancel = () => {
     if (window.confirm('Are you sure? All progress will be lost.')) {
-      navigate('/dashboard');
+      navigate('/dashboard')
     }
-  };
+  }
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-[#0b0f19] flex flex-col">
-      <div className="flex-1 flex items-start md:items-center justify-center p-4 overflow-hidden">
-        <div className="w-full max-w-4xl h-full md:h-auto flex flex-col">
+    <div className="h-screen bg-slate-50 dark:bg-[#0b0f19] flex flex-col">
+      <div className="flex-1 flex items-start md:items-center justify-center p-4">
+        <div className="w-full max-w-4xl h-full md:h-auto flex flex-col max-h-[calc(100vh-1.5rem)]">
           
           {/* Wizard Card */}
           <div className="bg-white dark:bg-slate-800 rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col h-full md:h-auto">
@@ -66,17 +68,20 @@ import BottomNav from "../components/Layout/BottomNav"
             />
 
             {/* Content - Takes remaining height */}
-            <div className="flex-1 overflow-y-auto p-6 md:p-8">
+            <div 
+              className="flex-1 overflow-y-auto custom-scrollbar p-6 md:p-8">
               {currentStep === 1 && (
                 <Step1BasicInfo formData={formData} setFormData={setFormData} />
               )}
               
               {currentStep === 2 && (
-                <Step2QuestionType formData={formData} setFormData={setFormData} />
+                <Step2QuestionType 
+                  formData={formData} 
+                  setFormData={setFormData} />
               )}
               
               {currentStep === 3 && (
-                <Step3CreateQuestions formData={formData} setFormData={setFormData} />
+                <Step3CreateQuestions formData={formData}  setFormData={setFormData} />
               )}
             </div>
 
@@ -104,11 +109,11 @@ function CreateQuestion() {
         <div className={`min-h-screen flex ${darkMode ? 'dark' : ''}`}>
         <div className="flex flex-col lg:flex-row w-full">
             <Sidebar />
-            <main className="flex-1 lg:ms-64 mb-10  lg:mb-0 overflow-y-auto custom-scrollbar bg-linear-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-slate-900">
+            <main className={ `flex-1 lg:ms-64 overflow-y-auto custom-scrollbar bg-linear-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-slate-900`}>
             {/* <Header darkMode={darkMode} setDarkMode={setDarkMode} /> */}
             <CreateQuestionBody />
             </main>
-            <BottomNav />
+            {/* <BottomNav /> */}
         </div>
         </div>
     );

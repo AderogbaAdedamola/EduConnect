@@ -1,23 +1,29 @@
+import { useEffect, useRef } from "react"
 import Icon from '../common/Icon';
 import QuestionCard from './QuestionCard';
 
 export default function Step3CreateQuestions({ formData, setFormData }) {
+  const initialized = useRef(false)
+  
   const addQuestion = () => {
     const newQuestion = {
       id: Date.now(),
       text: '',
       type: 'mcq',
-      options: ['', ''], // Start with 2 options
+      options: ['', ''], 
       correctAnswer: null,
       points: 10,
       suggestedAnswer: ''
-    };
+    }
     
     setFormData(prev => ({
       ...prev,
       questions: [...prev.questions, newQuestion]
     }));
-  };
+  }
+  useEffect(() =>{
+    localStorage.setItem("formData", JSON.stringify(formData))
+  }, [formData])
 
   const updateQuestion = (index, field, value) => {
     setFormData(prev => {
@@ -39,19 +45,23 @@ export default function Step3CreateQuestions({ formData, setFormData }) {
   };
 
   // Auto-add first question if none exist
-  if (formData.questions.length === 0) {
-    addQuestion();
+  useEffect(() =>{
+    if (!initialized.current && formData.questions.length === 0) {
+      initialized.current = true;
+      addQuestion();
   }
+  }, [])
+  
 
   return (
     <div className="space-y-6">
       {/* Step Title */}
       <div className="flex items-center gap-3 pb-4 border-b border-slate-200 dark:border-slate-700">
-        <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center flex-shrink-0">
+        <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center shrink-0">
           <Icon name="file-text" className="text-blue-600 dark:text-blue-400" />
         </div>
         <h2 className="text-xl md:text-2xl font-bold">
-          Step 3 of 3 - Create {formData.questionType === 'quiz' ? 'Quiz' : 'Questions'}
+          Create {formData.questionType === 'quiz' ? 'Quiz' : 'Questions'}
         </h2>
       </div>
 

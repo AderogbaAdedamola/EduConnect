@@ -11,7 +11,7 @@ export default function WizardHeader({ currentStep, onBack, onCancel }) {
   };
 
   return (
-    <div className="bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-700 dark:to-blue-800 px-4 md:px-6 py-4 flex-shrink-0">
+    <div className="bg-linear-to-r from-blue-600 to-blue-700 dark:from-blue-700 dark:to-blue-800 px-2 md:px-5 py-2 shrink-0">
       <div className="flex items-center justify-between text-white">
         <button
           onClick={currentStep > 1 ? onBack : onCancel}

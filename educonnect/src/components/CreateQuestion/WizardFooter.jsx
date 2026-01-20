@@ -9,7 +9,7 @@ export default function WizardFooter({ currentStep, onBack, onNext, onCancel, fo
   };
 
   return (
-    <div className="bg-slate-50 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-700 px-4 md:px-6 py-4 flex-shrink-0">
+    <div className="bg-slate-50 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-700 px-2 md:px-5 py-2 shrink-0">
       <div className="flex items-center justify-between gap-3">
         <button
           onClick={onCancel}

@@ -1,19 +1,25 @@
 // src/components/Layout/Sidebar.jsx
 import React from 'react';
 import Icon from '../common/Icon';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const Sidebar = () => {
+  const location = useLocation()
+  const navigate = useNavigate()
   const menuItems = [
-    { icon: 'layout-dashboard', label: 'Dashboard', active: true },
-    { icon: 'message-square-plus', label: 'Create Question' },
-    { icon: 'sparkles', label: 'Response' },
-    { icon: 'history', label: 'History' },
-    { icon: 'notebook-pen', label: 'Answer Questions' },
-  ];
+    { icon: 'layout-dashboard', label: 'Dashboard', path: '/dashboard' },
+    { icon: 'message-square-plus', label: 'Create Question', path: '/create-question' },
+    { icon: 'sparkles', label: 'Response', path: '/response' },
+    { icon: 'history', label: 'History', path: '/history' },
+    { icon: 'notebook-pen', label: 'Answer Questions', path: '/answer-questions' },
+  ]
 
   const bottomItems = [
     { icon: 'settings', label: 'Settings' },
-  ];
+  ]
+  const navigateTo = (path) =>{
+    navigate(path)
+  }
 
   return (
     <aside className="hidden max-h-screen fixed left-0 top-0 bottom-0 lg:flex w-64 border-r border-slate-200 dark:border-slate-800 flex-col bg-linear-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-slate-900">
@@ -29,20 +35,23 @@ const Sidebar = () => {
 
       {/* Main Navigation */}
       <nav className="flex-1 px-4 space-y-2 mt-4">
-        {menuItems.map((item) => (
-          <a
-            key={item.label}
-            href="#"
-            className={`flex items-center gap-4 px-4 py-3 rounded-xl transition-colors ${
-              item.active
-                ? 'bg-primary/10 text-primary font-semibold'
-                : 'text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
-            }`}
-          >
-            <Icon name={item.icon} />
-            {item.label}
-          </a>
-        ))}
+        {menuItems.map((item) => {
+          const isActive = location.pathname.startsWith(item.path)
+          return(
+            <button
+              key={item.label}
+              onClick={() => navigateTo(item.path)}
+              className={`flex items-center gap-4 px-4 py-3 rounded-xl transition-colors ${
+                isActive
+                  ? 'bg-primary/10 text-primary font-semibold'
+                  : 'text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
+              }`}
+            >
+              <Icon name={item.icon} />
+              {item.label}
+            </button>
+        )}
+        )}
       </nav>
 
       {/* User Profile & Settings */}

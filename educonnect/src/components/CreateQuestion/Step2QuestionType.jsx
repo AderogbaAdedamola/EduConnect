@@ -1,6 +1,8 @@
+import { useEffect, useRef } from 'react';
 import Icon from '../common/Icon';
 
-export default function Step2QuestionType({ formData, setFormData }) {
+export default function Step2QuestionType({ formData, setFormData, scrollingCont }) {
+  const target = useRef(null)
   const selectType = (type) => {
     setFormData(prev => ({ ...prev, questionType: type }));
   };
@@ -28,23 +30,34 @@ export default function Step2QuestionType({ formData, setFormData }) {
         'Perfect for surveys or practice'
       ]
     }
-  ];
+  ]
+  useEffect(() =>{
+    setTimeout(()=>{
+      target.current.scrollIntoView({
+        behavior: "smooth", 
+        block: "start" 
+        })
+    }, 600)
+  },[])
 
   return (
     <div className="space-y-6 max-w-4xl mx-auto">
       {/* Step Title */}
       <div className="flex items-center gap-3 pb-4 border-b border-slate-200 dark:border-slate-700">
-        <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center flex-shrink-0">
+        <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center shrink-0">
           <Icon name="layers" className="text-blue-600 dark:text-blue-400" />
         </div>
-        <h2 className="text-xl md:text-2xl font-bold">Step 2 of 3 - Choose Question Type</h2>
+        <h2 className="text-xl md:text-2xl font-bold">Choose Question Type</h2>
       </div>
 
       {/* Question Type Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-        {questionTypes.map((type) => (
+        {questionTypes.map((type, index) => {
+          const isTarget = index === questionTypes.length - 1
+          return(
           <button
             key={type.id}
+            ref={isTarget ? target : null}
             onClick={() => selectType(type.id)}
             className={`relative p-6 rounded-2xl border-2 transition-all text-left ${
               formData.questionType === type.id
@@ -70,13 +83,14 @@ export default function Step2QuestionType({ formData, setFormData }) {
             <ul className="space-y-2">
               {type.features.map((feature, index) => (
                 <li key={index} className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-400">
-                  <Icon name="circle" className="text-blue-500 mt-0.5 text-xs flex-shrink-0" />
+                  <Icon name="circle" className="text-blue-500 mt-0.5 text-xs shrink-0" />
                   <span>{feature}</span>
                 </li>
               ))}
             </ul>
           </button>
-        ))}
+        )}
+        )}
       </div>
     </div>
   );

@@ -9,10 +9,10 @@ export default function Step1BasicInfo({ formData, setFormData }) {
     <div className="space-y-6 max-w-2xl mx-auto">
       {/* Step Title */}
       <div className="flex items-center gap-3 pb-4 border-b border-slate-200 dark:border-slate-700">
-        <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center flex-shrink-0">
+        <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center shrink-0">
           <Icon name="info" className="text-blue-600 dark:text-blue-400" />
         </div>
-        <h2 className="text-xl md:text-2xl font-bold">Step 1 of 3 - Basic Info</h2>
+        <h2 className="text-xl md:text-2xl font-bold">Basic Info</h2>
       </div>
 
       {/* Title Input */}
@@ -53,24 +53,24 @@ export default function Step1BasicInfo({ formData, setFormData }) {
       </div>
 
       {/* AI Feedback Toggle */}
-      <div className="bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800 rounded-xl p-4">
+      <div className="bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800 rounded-xl p-3">
         <div className="flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <Icon name="sparkles" className="text-purple-600 dark:text-purple-400 text-xl flex-shrink-0" />
+            <Icon name="sparkles" className="text-purple-600 dark:text-purple-400 text-xl shrink-0" />
             <div>
               <p className="font-semibold text-slate-900 dark:text-white">AI Feedback</p>
               <p className="text-sm text-slate-600 dark:text-slate-400">Enable AI-powered responses</p>
             </div>
           </div>
           
-          <label className="relative inline-flex items-center cursor-pointer flex-shrink-0">
+          <label className="relative inline-flex items-center cursor-pointer shrink-0">
             <input 
               type="checkbox" 
               checked={formData.aiEnabled}
               onChange={(e) => handleChange('aiEnabled', e.target.checked)}
               className="sr-only peer" 
             />
-            <div className="w-11 h-6 bg-slate-300 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-slate-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-slate-600 peer-checked:bg-blue-600"></div>
+            <div className="w-11 h-6 bg-slate-300 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-slate-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-slate-600 peer-checked:bg-blue-600"></div>
           </label>
         </div>
       </div>
