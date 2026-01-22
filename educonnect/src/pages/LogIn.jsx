@@ -93,8 +93,9 @@ export default function LogIn(){
             })
             setUser(response.data.user)
             setAccessToken(response.data.accessToken)
+            localStorage.setItem("user", response.data.user)
             console.log(response.data.accessToken)
-            setTimeout(() => navigate(from, { replace:true }),5100)
+            setTimeout(() => navigate(from, { replace:true }),2000)
         } catch (error) {
             console.error("Login Error:", error);
 

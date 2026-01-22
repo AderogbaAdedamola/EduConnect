@@ -32,7 +32,11 @@ function AppContent() {
                   <Dashboard />
                 </ProtectedRoute>
             } />
-        
+        <Route path="/create-question"element={
+          <ProtectedRoute>
+            <CreateQuestion />
+          </ProtectedRoute>
+          } />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
 

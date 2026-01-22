@@ -35,6 +35,13 @@ const Header = ({ darkMode, setDarkMode }) => {
             <span className="absolute top-2.5 right-2.5 sm:top-3 sm:right-3 w-2.5 h-2.5 bg-red-500 border-2 border-white dark:border-slate-800 rounded-full"></span>
           </button>
 
+          {/* User profile Icon (Small Screen) */}
+          <div className="block lg:hidden">
+            <button className="w-10 h-10 sm:w-12 sm:h-12 bg-linear-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-xl font-bold  border dark:border-slate-200 border-slate-700  shadow-sm hover:shadow-md transition-shadow">
+              {"A"}
+            </button>
+          </div>
+
           {/* New Question Button (Desktop) */}
           <div className="hidden sm:block">
             <Button
@@ -45,12 +52,6 @@ const Header = ({ darkMode, setDarkMode }) => {
             >
               Create Question
             </Button>
-          </div>
-          {/* User profile Icon (Small Screen) */}
-          <div className="block sm:hidden">
-            <button className="w-10 h-10 sm:w-12 sm:h-12 bg-linear-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-xl font-bold  border dark:border-slate-200 border-slate-700  shadow-sm hover:shadow-md transition-shadow">
-              {"A"}
-            </button>
           </div>
         </div>
       </div>
