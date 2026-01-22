@@ -19,22 +19,22 @@ function AppContent() {
   //   attachInterceptors(() => accessToken, setAccessToken, clearAuth);
   // }, [accessToken, setAccessToken, clearAuth]);
   return (
-      <Routes>
-          <Route path="/create-question"element={<CreateQuestion />} />
-      </Routes>
       // <Routes>
-      //   <Route path="/"element={<LandingPage />} />
-      //   <Route path="/LogIn"element={<LogIn />} />
-      //   <Route path="/SignUp" element={<SignUp/>} />
-      //   <Route path="/forget-password" element={<ForgetPassword />} />
-      //       <Route path="/dashboard" element={
-      //           <ProtectedRoute>
-      //             <Dashboard />
-      //           </ProtectedRoute>
-      //       } />
-        
-      //   <Route path="*" element={<Navigate to="/" replace />} />
+      //     <Route path="/create-question"element={<CreateQuestion />} />
       // </Routes>
+      <Routes>
+        <Route path="/"element={<LandingPage />} />
+        <Route path="/LogIn"element={<LogIn />} />
+        <Route path="/SignUp" element={<SignUp/>} />
+        <Route path="/forget-password" element={<ForgetPassword />} />
+            <Route path="/dashboard" element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+            } />
+        
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
 
   )
 }

@@ -9,6 +9,8 @@ import { useAuth } from "../context/AuthContext"
 import Header from "../components/Layout/Header"
 import Sidebar from "../components/Layout/Sidebar"
 import BottomNav from "../components/Layout/BottomNav"
+import Notification from "../components/Notification"
+import AlartBox from "../components/AlartBox"
 
  function CreateQuestionBody() {
   const navigate = useNavigate();
@@ -99,13 +101,37 @@ import BottomNav from "../components/Layout/BottomNav"
         </div>
       </div>
     </div>
-  );
+  )
 }
 
 function CreateQuestion() {
     const { user, darkMode, setDarkMode } = useAuth()
+    const [notification, setNotification] = useState({
+      message: "",
+      type : "",
+    })
+    const [alart, setAlart] = useState({
+      message: "",
+      okWord: "",
+      glowType: "",
+    })
+    
 
     return (
+      <>
+        <Notification 
+          message={notification.message}
+          type={notification.type}
+          onClose={() => setNotification({message : "", type: ""})}
+          okFunction={() => console.log("positive action")}/>
+
+        <AlartBox 
+          message={alart.message}
+          okWord={alart.okWord}
+          glowType={alart.glowType}
+          onClose={() => setAlart({ message: "", okWord: "", glowType: "normal"})}
+          okFunction={() => console.log("positive action")}/>
+
         <div className={`min-h-screen flex ${darkMode ? 'dark' : ''}`}>
         <div className="flex flex-col lg:flex-row w-full">
             <Sidebar />
@@ -116,6 +142,7 @@ function CreateQuestion() {
             {/* <BottomNav /> */}
         </div>
         </div>
+      </>
     );
     }
 
