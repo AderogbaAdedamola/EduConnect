@@ -14,8 +14,7 @@ const Notification = ({ message, type = "success", onClose }) => {
     error: {bg: "bg-red-500", text: "text-red-500"},
     warning: {bg: "bg-yellow-400", text: "text-yellow-400"},
     info: {bg: "bg-blue-500", text: "text-blue-500"},
-  };
-  console.log("notification Type", type)
+  }
   
 
   return (

@@ -7,6 +7,7 @@ import googleIcon from "../assets/google-icon.png"
 import appleIcon from "../assets/apple-icon.png"
 import { api } from "../api/port"
 import { useNavigate } from "react-router-dom"
+import AlartBox from "../components/AlartBox"
 
 export default function SignUp(){
     const [showPassword, setShowPassword] = useState(false)
@@ -16,6 +17,16 @@ export default function SignUp(){
         password: "",
         confirmPassword: "",
     })
+    const [notification, setNotification] = useState({
+          message: "",
+          type : "",
+        })
+     const [alart, setAlart] = useState({
+          message: "",
+          okWord: "",
+          glowType: "normal",
+          okFunction: () => setAlart(prev =>({...prev, message: "", okWord: "",glowType: "normal",}))
+        })
     const [errors, setErrors] = useState({})
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
@@ -93,8 +104,12 @@ export default function SignUp(){
             // POST request to /signup (baseURL is handled in axiosInstance)
             const response = await api.post("/auth", newUser);
 
-            console.log("Signup successful:", response.data);
-            alert("Account created successfully!");
+            // console.log("Signup successful:", response.data);
+            setNotification({
+                message: "Account created successfully!",
+                type : "success",
+                })
+
             setFormData({
                 fullName: "",
                 email: "",
@@ -102,7 +117,7 @@ export default function SignUp(){
                 confirmPassword: "",
             })
             
-            navigate("/login")
+            setTimeout(() => navigate("/login"),5100)
             // return response.data;
         } catch (error) {
             console.error("Signup failed:", error);
@@ -110,87 +125,110 @@ export default function SignUp(){
             if (error.response) {
             // Server responded with a status outside 2xx
             console.error("Server error:", error.response.status, error.response.data);
-            alert(error.response.data?.message || "Signup failed. Please try again.");
+            setNotification({
+                message: `${error.response.data?.message || "Signup failed. Please try again."}`,
+                type : "info",
+                })
             } else if (error.request) {
             // No response received
-            alert("Check your connection.");
+            setNotification({
+                message: "Check your connection.",
+                type : "info",
+                })
             } else {
             // Something else went wrong
-            alert("Unexpected error. Please try again.");
+            setNotification({
+                message: "Unexpected error. Please try again.",
+                type : "error",
+                })
             }
         } finally {
             setLoading(false);
         }
     }
     return(
-        <section className="flex font-sans min-h-dvh flex-col items-center">
-            <h1 className="text-2xl/8 m-5">Create your account</h1>
-            <p className="text-sm text-gray-800 dark:text-gray-500">Sign Up to get started</p>
+        <>
+             <Notification 
+              message={notification.message}
+              type={notification.type}
+              onClose={() => setNotification({message : "", type: ""})}/>
 
-            <form onSubmit={handleSubmit} className="flex flex-col gap-3 w-full max-w-sm mx-auto p-4 ">
-                 <InputField
-                    type="text" 
-                    placeholder="Full Name"
-                    name="fullName"
-                    error={errors.fullName}
-                    onChange={handleChange}
-                    value={formData.fullName}
-                    />
-                <InputField
-                    type="Email" 
-                    placeholder="Email e.g johndoe@educon.com"
-                    name="email"
-                    error={errors.email}
-                    onChange={handleChange}
-                    value={formData.email}
-                    />
-                <span className=" relative">
-                    <InputField 
-                        type={showPassword ? "text" : "password"} 
-                        placeholder="Password(min.8 chars)" 
-                        name="password"
-                        error={errors.password}
+            <AlartBox 
+                message={alart.message}
+                okWord={alart.okWord}
+                glowType={alart.glowType}
+                onClose={() => setAlart({ message: "", okWord: "", glowType: "normal"})}
+                okFunction={alart.okFunction}/>
+            
+            <section className="flex font-sans min-h-dvh flex-col items-center">
+                <h1 className="text-2xl/8 m-5">Create your account</h1>
+                <p className="text-sm text-gray-800 dark:text-gray-500">Sign Up to get started</p>
+
+                <form onSubmit={handleSubmit} className="flex flex-col gap-3 w-full max-w-sm mx-auto p-4 ">
+                    <InputField
+                        type="text" 
+                        placeholder="Full Name"
+                        name="fullName"
+                        error={errors.fullName}
                         onChange={handleChange}
-                        value={formData.password}
+                        value={formData.fullName}
                         />
-                        <button
-                            type="button"
-                            onClick={() => setShowPassword(!showPassword)}
-                            className="absolute inset-y-0 right-3 flex items-center text-gray-500 hover:text-gray-700 rounded-full dark:hover:text-gray-300 transition-colors"
-                            >
-                            {showPassword ? (
-                                <EyeOff className="w-5 h-5" />
-                            ) : (
-                                <Eye className="w-5 h-5" />
-                            )}
+                    <InputField
+                        type="Email" 
+                        placeholder="Email e.g johndoe@educon.com"
+                        name="email"
+                        error={errors.email}
+                        onChange={handleChange}
+                        value={formData.email}
+                        />
+                    <span className=" relative">
+                        <InputField 
+                            type={showPassword ? "text" : "password"} 
+                            placeholder="Password(min.8 chars)" 
+                            name="password"
+                            error={errors.password}
+                            onChange={handleChange}
+                            value={formData.password}
+                            />
+                            <button
+                                type="button"
+                                onClick={() => setShowPassword(!showPassword)}
+                                className="absolute inset-y-0 right-3 flex items-center text-gray-500 hover:text-gray-700 rounded-full dark:hover:text-gray-300 transition-colors"
+                                >
+                                {showPassword ? (
+                                    <EyeOff className="w-5 h-5" />
+                                ) : (
+                                    <Eye className="w-5 h-5" />
+                                )}
+                        </button>
+                    </span>
+                    
+                    <InputField 
+                        type="password"
+                        placeholder="Confirm Password" 
+                        name="confirmPassword"
+                        error={errors.confirmPassword}
+                        onChange={handleChange}
+                        value={formData.confirmPassword}
+                        />
+                    <button className="my-5 w-full text-center bg-sky-500 dark:bg-sky-700 hover:bg-sky-400 dark:hover:bg-sky-600 shadow-md/10 shadow-sky-500 rounded-lg p-2 cursor-pointer">
+                    {loading ? "Creating Account..." : "Create Account"}
                     </button>
-                </span>
-                
-                <InputField 
-                    type="password"
-                    placeholder="Confirm Password" 
-                    name="confirmPassword"
-                    error={errors.confirmPassword}
-                    onChange={handleChange}
-                    value={formData.confirmPassword}
-                    />
-                <button className="my-5 w-full text-center bg-sky-500 dark:bg-sky-700 hover:bg-sky-400 dark:hover:bg-sky-600 shadow-md/10 shadow-sky-500 rounded-lg p-2 cursor-pointer">
-                 {loading ? "Creating Account..." : "Create Account"}
-                </button>
-            </form>
-            <p className="bg-linear-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-slate-900 dark:text-slate-100 text-slate-600 text-[0.8em]/7 translate-y-3.5 px-1">OR CONTINUE WITH</p>
-            <hr className="dark:text-slate-100 text-slate-600 min-w-70"/>
-            <div className="flex gap-1 mt-6 justify-center min-w-70">
-                <button className="flex justify-center gap-2 mx-1 grow  text-center bg-gray-200 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 shadow-md/10 rounded-lg p-1.5 cursor-pointer">
-                    <img src={googleIcon} alt="" className="size-6 "/>
-                    <span>Google</span>
-                </button>
-                <button className="flex justify-center gap-2 mx-1 grow text-center bg-gray-200 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 shadow-md/10 rounded-lg p-1.5 cursor-pointer">
-                    <img src={appleIcon} alt="" className="size-6 "/>
-                    <span>Apple</span>
-                </button>
-            </div>
-            <p className="text-sm w-70 mt-3 text-gray-800 dark:text-gray-500 text-right font-bold pt-1 account-text">Already a member? <Link to="/LogIn" className="text-sm text-sky-700 text-right hover:underline hover:text-sky-500 ">Sign In</Link></p>
-        </section>
+                </form>
+                <p className="bg-linear-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-slate-900 dark:text-slate-100 text-slate-600 text-[0.8em]/7 translate-y-3.5 px-1">OR CONTINUE WITH</p>
+                <hr className="dark:text-slate-100 text-slate-600 min-w-70"/>
+                <div className="flex gap-1 mt-6 justify-center min-w-70">
+                    <button className="flex justify-center gap-2 mx-1 grow  text-center bg-gray-200 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 shadow-md/10 rounded-lg p-1.5 cursor-pointer">
+                        <img src={googleIcon} alt="" className="size-6 "/>
+                        <span>Google</span>
+                    </button>
+                    <button className="flex justify-center gap-2 mx-1 grow text-center bg-gray-200 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 shadow-md/10 rounded-lg p-1.5 cursor-pointer">
+                        <img src={appleIcon} alt="" className="size-6 "/>
+                        <span>Apple</span>
+                    </button>
+                </div>
+                <p className="text-sm w-70 mt-3 text-gray-800 dark:text-gray-500 text-right font-bold pt-1 account-text">Already a member? <Link to="/LogIn" className="text-sm text-sky-700 text-right hover:underline hover:text-sky-500 ">Sign In</Link></p>
+            </section>
+        </>
     )
 }

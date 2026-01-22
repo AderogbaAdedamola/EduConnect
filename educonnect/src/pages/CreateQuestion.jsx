@@ -122,8 +122,7 @@ function CreateQuestion() {
         <Notification 
           message={notification.message}
           type={notification.type}
-          onClose={() => setNotification({message : "", type: ""})}
-          okFunction={() => console.log("positive action")}/>
+          onClose={() => setNotification({message : "", type: ""})}/>
 
         <AlartBox 
           message={alart.message}
