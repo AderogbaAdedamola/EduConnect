@@ -1,5 +1,5 @@
 import { useAuth } from "../context/AuthContext"
-import useRefreshToken from "../hooks/useRefresh"
+import useRefreshToken from "../hooks/useRefreshToken"
 import { useEffect } from 'react';
 import StatCard from '../components/Dashboard/StatCard';
 import ResponseTrends from '../components/Dashboard/ResponseTrends';
@@ -16,7 +16,7 @@ import RenderNeededAttention from "../components/Dashboard/RenderNeededAttention
 
 const DashboardBody = () => {
     const { user, accessToken, darkMode, setDarkMode } = useAuth()
-    const refresh = useRefreshToken()
+    const { refresh } = useRefreshToken()
     useEffect(() =>{
         const getData = async () => {
            try{

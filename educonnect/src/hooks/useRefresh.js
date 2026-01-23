@@ -2,23 +2,39 @@ import { api } from '../api/port';
 import { useAuth } from '../context/AuthContext';
 
 const useRefreshToken = () => {
-    const { accessToken, setAccessToken, setUser } = useAuth();
+    const { setAccessToken, setUser } = useAuth(); // Only need setter
 
     const refresh = async () => {
-        // console.log(accessToken)
-        const response = await api.post(
-        "/auth/refresh" ,
-        {},
-        { 
-            withCredentials: true,
+        try {
+            const response = await api.post(
+                "/auth/refresh",
+                {},
+                { 
+                    withCredentials: true,
+                }
+            );
+            
+            const newAccessToken = response?.data?.accessToken;
+            
+            if (!newAccessToken) {
+                throw new Error('No access token in response');
+            }
+            
+            setAccessToken(newAccessToken);
+            return newAccessToken;
+            
+        } catch (error) {
+            console.error('Refresh token failed:', error);
+            
+            // Optional: Clear auth state on failure
+            // setAccessToken(null);
+            // setUser(null);
+            
+            throw error; // Re-throw so caller knows it failed
         }
-        );
-        setAccessToken(response?.data?.accessToken)
-        setUser(prev => prev)
-
-        return response.data.accessToken;
-    }
-    return refresh
+    };
+    
+    return refresh;
 };
 
 export default useRefreshToken;
