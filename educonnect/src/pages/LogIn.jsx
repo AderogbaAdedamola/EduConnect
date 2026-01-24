@@ -93,7 +93,7 @@ export default function LogIn(){
             })
             setUser(response.data.user)
             setAccessToken(response.data.accessToken)
-            localStorage.setItem("user", response.data.user)
+            localStorage.setItem("user", JSON.stringify(response.data.user))
             console.log(response.data.accessToken)
             setTimeout(() => navigate(from, { replace:true }),2000)
         } catch (error) {

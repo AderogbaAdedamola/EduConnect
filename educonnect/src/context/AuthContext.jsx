@@ -4,7 +4,10 @@ import { createContext, useContext, useState, useEffect } from "react"
 const AuthContext = createContext()
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(() =>{
+    const storedUser = localStorage.getItem("user");
+    return storedUser ? JSON.parse(storedUser) : {}
+  });
   const [accessToken, setAccessToken] = useState(null)
   const [darkMode, setDarkMode] = useState(false)
 
@@ -13,6 +16,14 @@ export function AuthProvider({ children }) {
     setUser(null);
     setAccessToken(null);
   };
+
+  useEffect(() =>{
+    if(user){
+      localStorage.setItem("user", JSON.stringify(user))
+    }else{
+      localStorage.removeItem("user")
+    }
+  }, [user, accessToken])
 
  // Read DARKMODE from the system
   // useEffect(() =>{
@@ -69,6 +80,8 @@ export function AuthProvider({ children }) {
   //   mediaQuery.addEventListener('change', handleChange);
   //   return () => mediaQuery.removeEventListener('change', handleChange);
   // }, []);
+
+  useEffect()
 
   return (
     <AuthContext.Provider value={{ 
