@@ -1,5 +1,6 @@
 
 import { createContext, useContext, useState, useEffect } from "react"
+import { setAuthToken } from "../api/port"
 
 const AuthContext = createContext()
 
@@ -10,18 +11,23 @@ export function AuthProvider({ children }) {
   });
   const [accessToken, setAccessToken] = useState(null)
   const [darkMode, setDarkMode] = useState(false)
+  const [isCreatingQues, setIsCreatingQues] = useState(false)
+  setAuthToken(accessToken)
 
   // Just a simple reset function — no backend call here
   const clearAuth = () => {
     setUser(null);
     setAccessToken(null);
+    setAuthToken(null)
   };
 
   useEffect(() =>{
     if(user){
       localStorage.setItem("user", JSON.stringify(user))
+      setAuthToken(accessToken)
     }else{
       localStorage.removeItem("user")
+      clearAuth()
     }
   }, [user, accessToken])
 
@@ -81,8 +87,6 @@ export function AuthProvider({ children }) {
   //   return () => mediaQuery.removeEventListener('change', handleChange);
   // }, []);
 
-  useEffect()
-
   return (
     <AuthContext.Provider value={{ 
       user,
@@ -92,6 +96,8 @@ export function AuthProvider({ children }) {
       clearAuth,
       darkMode,
       setDarkMode,
+      isCreatingQues,
+      setIsCreatingQues,
       // toggleTheme
       }}>
       {children}

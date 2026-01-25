@@ -36,7 +36,7 @@ const Sidebar = () => {
       {/* Main Navigation */}
       <nav className="flex-1 px-4 space-y-2 mt-4">
         {menuItems.map((item) => {
-          const isActive = location.pathname.startsWith(item.path)
+          const isActive = location.pathname.toLowerCase().startsWith(item.path)
           return(
             <button
               key={item.label}

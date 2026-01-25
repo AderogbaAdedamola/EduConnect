@@ -3,9 +3,11 @@ import Icon from '../common/Icon';
 export default function WizardHeader({ currentStep, onBack, onCancel }) {
   const getStepTitle = () => {
     switch(currentStep) {
-      case 1: return 'Step 1 of 3 - Basic Info';
-      case 2: return 'Step 2 of 3 - Choose Question Type';
-      case 3: return 'Step 3 of 3 - Create Questions';
+      case 1: return 'Step 1 of 4 - Basic Info';
+      case 2: return 'Step 2 of 4 - Choose Question Type';
+      case 3: return 'Step 3 of 4 - Create Questions';
+      case 4: return 'Step 4 of 4 - User Info';
+
       default: return '';
     }
   };

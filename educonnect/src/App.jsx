@@ -24,8 +24,8 @@ function AppContent() {
       // </Routes>
       <Routes>
         <Route path="/"element={<LandingPage />} />
-        <Route path="/LogIn"element={<LogIn />} />
-        <Route path="/SignUp" element={<SignUp/>} />
+        <Route path="/logIn"element={<LogIn />} />
+        <Route path="/signUp" element={<SignUp/>} />
         <Route path="/forget-password" element={<ForgetPassword />} />
             <Route path="/dashboard" element={
                 <ProtectedRoute>

@@ -22,7 +22,7 @@ const BottomNav = () => {
   return (
     <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 px-6 py-3 flex justify-between items-center z-50">
       {navItems.map((item) => {
-        const isActive = location.pathname.startsWith(item.path)
+        const isActive = location.pathname.toLowerCase().startsWith(item.path)
         return(
         <button
           key={item.label}

@@ -1,103 +1,47 @@
-import { useRef, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import WizardHeader from '../components/CreateQuestion/WizardHeader'
-import WizardFooter from '../components/CreateQuestion/WizardFooter'
-import Step1BasicInfo from '../components/CreateQuestion/Step1BasicInfo'
-import Step2QuestionType from '../components/CreateQuestion/Step2QuestionType'
-import Step3CreateQuestions from '../components/CreateQuestion/Step3CreateQuestions'
+import { useState } from 'react'
 import { useAuth } from "../context/AuthContext"
 import Header from "../components/Layout/Header"
 import Sidebar from "../components/Layout/Sidebar"
 import BottomNav from "../components/Layout/BottomNav"
 import Notification from "../components/Notification"
 import AlartBox from "../components/AlartBox"
+import CreateQuestionMain from '../components/CreateQuestion/CreateQuestionMain'
 
- function CreateQuestionBody() {
-  const navigate = useNavigate();
-  const [currentStep, setCurrentStep] = useState(1)
-  
-  // Form data state
-  const [formData, setFormData] = useState({
-    // Step 1: Basic Info
-    title: '',
-    category: '',
-    aiEnabled: true,
-    
-    // Step 2: Question Type
-    questionType: '', // 'quiz' or 'flexible'
-    
-    // Step 3: Questions
-    questions: []
-  });
+function CreateQuestionBody() {
+    const { isCreatingQues, setIsCreatingQues } = useAuth()
 
-  const handleNext = () => {
-    if (currentStep < 3) {
-      setCurrentStep(currentStep + 1);
-    } else {
-      // Handle finish/publish
-      console.log('Publishing:', formData)
-      // TODO: Send to API
-      //If API response is success
-      localStorage.removeItem("formData")  
-    }
-  };
-
-  const handleBack = () => {
-    if (currentStep > 1) {
-      setCurrentStep(currentStep - 1)
-    }
-  }
-
-  const handleCancel = () => {
-    if (window.confirm('Are you sure? All progress will be lost.')) {
-      navigate('/dashboard')
-    }
+  if (isCreatingQues) {
+    return <CreateQuestionMain />
   }
 
   return (
-    <div className="h-screen bg-slate-50 dark:bg-[#0b0f19] flex flex-col">
-      <div className="flex-1 flex items-start md:items-center justify-center p-4">
-        <div className="w-full max-w-4xl h-full md:h-auto flex flex-col max-h-[calc(100vh-1.5rem)]">
-          
-          {/* Wizard Card */}
-          <div className="bg-white dark:bg-slate-800 rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col h-full md:h-auto">
-            
-            {/* Header */}
-            <WizardHeader 
-              currentStep={currentStep}
-              onBack={handleBack}
-              onCancel={handleCancel}
-            />
+    <div className="p-6">
+      {/* Two main boxes */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg border border-slate-200 dark:border-slate-700">
+          <h2 className="text-xl font-bold mb-3">Create Question</h2>
+          <p className="text-slate-600 dark:text-slate-400 mb-4">
+            Manually create questions with full control
+          </p>
+          <button 
+            onClick={() => setIsCreatingQues(true)}
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2.5 rounded-lg font-semibold"
+          >
+            Start Creating
+          </button>
+        </div>
 
-            {/* Content - Takes remaining height */}
-            <div 
-              className="flex-1 overflow-y-auto custom-scrollbar p-6 md:p-8">
-              {currentStep === 1 && (
-                <Step1BasicInfo formData={formData} setFormData={setFormData} />
-              )}
-              
-              {currentStep === 2 && (
-                <Step2QuestionType 
-                  formData={formData} 
-                  setFormData={setFormData} />
-              )}
-              
-              {currentStep === 3 && (
-                <Step3CreateQuestions formData={formData}  setFormData={setFormData} />
-              )}
-            </div>
-
-            {/* Footer */}
-            <WizardFooter 
-              currentStep={currentStep}
-              onBack={handleBack}
-              onNext={handleNext}
-              onCancel={handleCancel}
-              formData={formData}
-            />
-
-          </div>
-
+        <div className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg border border-slate-200 dark:border-slate-700">
+          <h2 className="text-xl font-bold mb-3">Create with AI</h2>
+          <p className="text-slate-600 dark:text-slate-400 mb-4">
+            Generate questions using AI assistance
+          </p>
+          <button 
+            onClick={() => setIsCreatingQues(true)}
+            className="w-full bg-linear-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white py-2.5 rounded-lg font-semibold"
+          >
+            Use AI Assistant
+          </button>
         </div>
       </div>
     </div>
@@ -105,7 +49,7 @@ import AlartBox from "../components/AlartBox"
 }
 
 function CreateQuestion() {
-    const { user, darkMode, setDarkMode } = useAuth()
+    const { user, isCreatingQues, darkMode, setDarkMode } = useAuth()
     const [notification, setNotification] = useState({
       message: "",
       type : "",
@@ -124,7 +68,7 @@ function CreateQuestion() {
           type={notification.type}
           onClose={() => setNotification({message : "", type: ""})}/>
 
-        <AlartBox 
+        <AlartBox
           message={alart.message}
           okWord={alart.okWord}
           glowType={alart.glowType}
@@ -135,10 +79,11 @@ function CreateQuestion() {
         <div className="flex flex-col lg:flex-row w-full">
             <Sidebar />
             <main className={ `flex-1 lg:ms-64 overflow-y-auto custom-scrollbar bg-linear-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-slate-900`}>
-            {/* <Header darkMode={darkMode} setDarkMode={setDarkMode} /> */}
+            {!isCreatingQues && <Header darkMode={darkMode} setDarkMode={setDarkMode} />}
             <CreateQuestionBody />
             </main>
-            {/* <BottomNav /> */}
+            {!isCreatingQues && <BottomNav />}
+            
         </div>
         </div>
       </>

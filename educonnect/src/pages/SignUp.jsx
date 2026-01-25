@@ -8,6 +8,7 @@ import appleIcon from "../assets/apple-icon.png"
 import { api } from "../api/port"
 import { useNavigate } from "react-router-dom"
 import AlartBox from "../components/AlartBox"
+import Notification from "../components/Notification"
 
 export default function SignUp(){
     const [showPassword, setShowPassword] = useState(false)
