@@ -9,9 +9,18 @@ import CreateQuestionMain from '../components/CreateQuestion/CreateQuestionMain'
 
 function CreateQuestionBody() {
     const { isCreatingQues, setIsCreatingQues } = useAuth()
+    const [createManually, setCreateManually] = useState(false)
+    const [createByAI, setCreateByAI] = useState(false)
 
-  if (isCreatingQues) {
-    return <CreateQuestionMain />
+  if (isCreatingQues && createManually) {
+    return (
+    <CreateQuestionMain 
+     setCreateManually={setCreateManually}
+     setCreateByAI={setCreateByAI}/>
+  )
+  }
+  if (isCreatingQues && createByAI) {
+    return <div>Create By Ai page</div>
   }
 
   return (
@@ -24,7 +33,10 @@ function CreateQuestionBody() {
             Manually create questions with full control
           </p>
           <button 
-            onClick={() => setIsCreatingQues(true)}
+            onClick={() =>{ 
+              setIsCreatingQues(true)
+              setCreateManually(true)}
+            }
             className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2.5 rounded-lg font-semibold"
           >
             Start Creating
@@ -37,7 +49,10 @@ function CreateQuestionBody() {
             Generate questions using AI assistance
           </p>
           <button 
-            onClick={() => setIsCreatingQues(true)}
+            onClick={() =>{ 
+              setIsCreatingQues(true)
+              setCreateByAI(true)}
+            }
             className="w-full bg-linear-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white py-2.5 rounded-lg font-semibold"
           >
             Use AI Assistant

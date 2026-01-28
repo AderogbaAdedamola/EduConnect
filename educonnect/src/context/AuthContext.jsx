@@ -14,7 +14,7 @@ export function AuthProvider({ children }) {
   const [isCreatingQues, setIsCreatingQues] = useState(false)
   setAuthToken(accessToken)
 
-  // Just a simple reset function — no backend call here
+
   const clearAuth = () => {
     setUser(null);
     setAccessToken(null);

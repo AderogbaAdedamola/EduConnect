@@ -6,9 +6,11 @@ import Step1BasicInfo from './Step1BasicInfo'
 import Step2QuestionType from './Step2QuestionType'
 import Step3CreateQuestions from './Step3CreateQuestions'
 import Step4UserInfo from "./Step4UserInfo"
+import { useAuth } from "../../context/AuthContext"
 
 
- function CreateQuestionMain() {
+ function CreateQuestionMain({setCreateManually, setCreateByAI}) {
+  const { isCreatingQues, setIsCreatingQues } = useAuth()
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1)
   
@@ -48,7 +50,9 @@ import Step4UserInfo from "./Step4UserInfo"
 
   const handleCancel = () => {
     if (window.confirm('Are you sure? All progress will be lost.')) {
-      navigate('/dashboard')
+      setIsCreatingQues(false)
+      setCreateManually(false)
+      setCreateByAI(false)
     }
   }
 

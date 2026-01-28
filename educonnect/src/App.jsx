@@ -8,6 +8,7 @@ import ProtectedRoute from "./components/ProtectedRoute"
 import { AuthProvider, useAuth } from "./context/AuthContext"
 import ForgetPassword from "./pages/ForgetPassword"
 import CreateQuestion from "./pages/CreateQuestion"
+import History from "./pages/History"
 import TestCreate from "./pages/TestCreate"
 
 
@@ -35,6 +36,10 @@ function AppContent() {
         <Route path="/create-question"element={
           <ProtectedRoute>
             <CreateQuestion />
+          </ProtectedRoute>
+          } /><Route path="/history"element={
+          <ProtectedRoute>
+            <History />
           </ProtectedRoute>
           } />
         <Route path="*" element={<Navigate to="/" replace />} />

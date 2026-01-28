@@ -21,7 +21,7 @@ function LandingPage() {
   }, [location.pathname])
 
   return (
-    <div className="min-h-screen w-screen font-sans bg-linear-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-slate-900 text-slate-800 dark:text-white">
+    <div className="min-h-screen font-sans bg-linear-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-slate-900 text-slate-800 dark:text-white">
       {/* Navbar */}
       <header className="flex justify-between items-center px-6 py-4 border-b border-gray-200 dark:border-gray-800">
         <div className="flex items-center space-x-2">
