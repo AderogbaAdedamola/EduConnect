@@ -3,10 +3,13 @@ import Button from '../UI/Button';
 import Icon from '../common/Icon'
 import { useAuth } from "../../context/AuthContext"
 import { Share2, MessageSquare, Sparkles, TrendingUp, Copy, ExternalLink, Users, Clock, CheckCircle2, AlertCircle } from 'lucide-react';
+import { useNavigate } from "react-router-dom"
 
 
 const Header = ({ darkMode, setDarkMode }) => {
     const { user, toggleTheme } = useAuth()
+    const navigate = useNavigate()
+
   return (
     <header className="sticky top-0 z-10 bg-linear-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-slate-900 backdrop-blur-md px-5 pt-3 pb-6 flex flex-col ">
       <div className="flex items-center justify-between">
@@ -49,6 +52,7 @@ const Header = ({ darkMode, setDarkMode }) => {
               icon= "message-square-plus"
               iconStyle="size-5"
               size="lg"
+              onClick={() => navigate("/create-question")}
             >
               Create Question
             </Button>

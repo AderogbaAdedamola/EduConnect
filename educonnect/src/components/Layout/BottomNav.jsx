@@ -11,7 +11,7 @@ const BottomNav = () => {
     { icon: 'message-square-plus', label: 'Create', path: '/create-question' },
     { icon: 'sparkles', label: 'Response', path: '/response' },
     { icon: 'history', label: 'History', path: '/history' },
-    { icon: 'notebook-pen', label: 'Answer', path: '/answer-questions' },
+    { icon: 'search', label: 'Discover', path: '/discover-questions' },
     // { icon: 'settings', label: 'Settings' },
   ];
 

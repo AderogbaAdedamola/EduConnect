@@ -11,7 +11,7 @@ const Sidebar = () => {
     { icon: 'message-square-plus', label: 'Create Question', path: '/create-question' },
     { icon: 'sparkles', label: 'Response', path: '/response' },
     { icon: 'history', label: 'History', path: '/history' },
-    { icon: 'notebook-pen', label: 'Answer Questions', path: '/answer-questions' },
+    { icon: 'search', label: 'Discover', path: '/discover-questions' },
   ]
 
   const bottomItems = [

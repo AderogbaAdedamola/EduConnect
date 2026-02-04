@@ -5,6 +5,7 @@ import heroBg from "../assets/hero-bg.png"
 import AOS from "aos"
 import 'aos/dist/aos.css'
 import BrainIcon from "../assets/head-brain.svg?react"
+import { MessagesSquare, NotebookText, Share2  } from "lucide-react"
 
 function LandingPage() {
 
@@ -71,8 +72,10 @@ function LandingPage() {
       <section className="px-6 lg:px-20 py-10 grid grid-cols-1 md:grid-cols-2 gap-8">
         {[
           {
+            // <BrainIcon className="w-10 h-10 text-blue-500"/>
             // spakle star
             // <span className="material-symbols-outlined text-sm text-blue-500 font-bold">auto_awesome</span>
+            // 
             icon: <span className="material-symbols-outlined text-[28px]" style={{fontVariationSettings:" 'FILL' 1"}}>psychology_alt</span>,
             color: "text-purple-500",
             bgColor: "bg-purple-500/10",
@@ -80,8 +83,7 @@ function LandingPage() {
             text: "Get instant feedback on open-ended answers. Our AI breaks complex topics into simple explanations.",
           },
           {
-            // <BrainIcon className="w-10 h-10 text-blue-500"/>
-
+            // <MessagesSquare />
             icon: <span className="material-symbols-outlined text-[28px]" style={{fontVariationSettings: " 'FILL' 1"}}>forum</span>,
             color: "text-green-500",
             bgColor: "bg-green-500/10",
@@ -89,6 +91,7 @@ function LandingPage() {
             text: "Allow peers to comment on submissions. Learn from different perspectives and approaches.",
           },
           {
+            // <NotebookText />
             icon: <span className="material-symbols-outlined text-[28px]" style={{fontVariationSettings: " 'FILL' 1"}}>library_books</span>,
             color: "text-orange-500",
             bgColor: "bg-orange-500/10",
@@ -96,6 +99,7 @@ function LandingPage() {
             text: "Easily collect answers from a wide audience. Perfect for teachers, tutors, or curious minds.",
           },
           {
+            // <Share2 />
             icon: <span className="material-symbols-outlined text-[28px]" style={{fontVariationSettings:" 'FILL' 1"}}>share</span>,
             color: "text-blue-500",
             bgColor: "bg-blue-500/10",

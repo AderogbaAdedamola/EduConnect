@@ -1,14 +1,22 @@
-import { useEffect } from "react"
-import LogIn from "./pages/LogIn"
+import { useState, useEffect } from "react"
+
 import { Routes, Route, Link, BrowserRouter ,Navigate } from "react-router-dom"
-import SignUp from "./pages/SignUp"
-import LandingPage from "./pages/LandingPage"
-import Dashboard from "./pages/Dashboard"
-import ProtectedRoute from "./components/ProtectedRoute"
 import { AuthProvider, useAuth } from "./context/AuthContext"
+
+import LandingPage from "./pages/LandingPage"
+import LogIn from "./pages/LogIn"
+import SignUp from "./pages/SignUp"
 import ForgetPassword from "./pages/ForgetPassword"
+
+import ProtectedRoute from "./components/ProtectedRoute"
+import MainLayout from "./components/Layout/MainLayout"
+
+import Dashboard from "./pages/Dashboard"
 import CreateQuestion from "./pages/CreateQuestion"
 import History from "./pages/History"
+import AnswerQuestion from "./pages/AnswerQuestion"
+import Response from "./pages/Response"
+
 import TestCreate from "./pages/TestCreate"
 
 
@@ -37,11 +45,27 @@ function AppContent() {
           <ProtectedRoute>
             <CreateQuestion />
           </ProtectedRoute>
-          } /><Route path="/history"element={
+          } />
+        <Route path="/history"element={
           <ProtectedRoute>
             <History />
           </ProtectedRoute>
           } />
+        <Route path="/response"element={
+          <ProtectedRoute>
+            <MainLayout >
+              <Response />
+            </MainLayout>
+          </ProtectedRoute>
+          } />
+          <Route path="/discover-questions"element={
+          <ProtectedRoute>
+          
+              <AnswerQuestion />
+            
+          </ProtectedRoute>
+          } />
+          
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
 
