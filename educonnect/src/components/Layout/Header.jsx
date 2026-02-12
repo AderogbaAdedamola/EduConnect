@@ -11,7 +11,7 @@ const Header = ({ darkMode, setDarkMode }) => {
     const navigate = useNavigate()
 
   return (
-    <header className="sticky top-0 z-10 bg-linear-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-slate-900 backdrop-blur-md px-5 pt-3 pb-6 flex flex-col ">
+    <header className="sticky top-0 z-10 bg-linear-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-slate-900 backdrop-blur-md px-5 pt-3 pb-2 mb-2 flex flex-col border-b border-slate-200 dark:border-slate-800">
       <div className="flex items-center justify-between">
         <div>
           <p className="text-slate-500 dark:text-slate-400 text-sm font-medium">
