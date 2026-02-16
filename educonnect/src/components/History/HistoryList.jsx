@@ -8,7 +8,7 @@ const typeColors = {
   'Image Upload': 'bg-pink-100   dark:bg-pink-900/30   text-pink-600   dark:text-pink-400',
 };
 
-// ─── Skeleton Card ────────────────────────────────────────────────────────────
+
 function SkeletonCard() {
   return (
     <div className="flex items-center justify-between gap-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl px-5 py-4 animate-pulse">

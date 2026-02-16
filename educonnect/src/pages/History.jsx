@@ -64,7 +64,7 @@ function HistoryBody() {
       </div>
 
       {/* List — scrolls independently */}
-      <div className="flex-1 overflow-y-auto pr-1 custom-scrollbar">
+      <div className="flex-1 overflow-y-auto pr-1 custom-scrollbar pb-9">
         <HistoryList list={list} activeTab={activeTab} loading={loading} />
       </div>
 
@@ -73,15 +73,15 @@ function HistoryBody() {
 }
 
 export default function History() {
-  const { darkMode, setDarkMode } = useAuth();
+  const { theme } = useAuth();
 
   return (
-    <div className="min-h-screen flex">
+    <div className="min-h-screen flex ">
       <div className="flex flex-col lg:flex-row w-full">
         <Sidebar />
         {/* overflow-hidden on main stops the page from scrolling */}
-        <main className="flex-1 lg:ms-64 mb-10 lg:mb-0 overflow-hidden bg-linear-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-slate-900">
-          <QuickHeader darkMode={darkMode} setDarkMode={setDarkMode} />
+        <main className="flex-1 lg:ms-64 mb-4 lg:mb-0 overflow-hidden bg-linear-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-slate-900">
+          <QuickHeader />
           <HistoryBody />
         </main>
         <BottomNav />

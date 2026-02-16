@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useAuth } from "../context/AuthContext"
-import Header from "../components/Layout/Header"
+import Header from "../components/Layout/QuickHeader"
 import Sidebar from "../components/Layout/Sidebar"
 import BottomNav from "../components/Layout/BottomNav"
 import Notification from "../components/Notification"
@@ -64,7 +64,7 @@ function CreateQuestionBody() {
 }
 
 function CreateQuestion() {
-    const { user, isCreatingQues, darkMode, setDarkMode } = useAuth()
+    const { user, isCreatingQues, theme } = useAuth()
     const [notification, setNotification] = useState({
       message: "",
       type : "",
@@ -90,11 +90,11 @@ function CreateQuestion() {
           onClose={() => setAlart({ message: "", okWord: "", glowType: "normal"})}
           okFunction={() => console.log("positive action")}/>
 
-        <div className={`min-h-screen flex ${darkMode ? 'dark' : ''}`}>
+        <div className={`min-h-screen flex ${theme === "dark" ? 'dark' : ''}`}>
         <div className="flex flex-col lg:flex-row w-full">
             <Sidebar />
             <main className={ `flex-1 lg:ms-64 overflow-y-auto custom-scrollbar bg-linear-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-slate-900`}>
-            {!isCreatingQues && <Header darkMode={darkMode} setDarkMode={setDarkMode} />}
+            {!isCreatingQues && <Header />}
             <CreateQuestionBody />
             </main>
             {!isCreatingQues && <BottomNav />}

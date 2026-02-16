@@ -15,7 +15,7 @@ import RenderNeededAttention from "../components/Dashboard/RenderNeededAttention
 
 
 const DashboardBody = () => {
-    const { user, accessToken, darkMode, setDarkMode } = useAuth()
+    const { user, accessToked} = useAuth()
     const { refresh } = useRefreshToken()
     useEffect(() =>{
         const getData = async () => {
@@ -153,14 +153,14 @@ const DashboardBody = () => {
 
 
   function Dashboard() {
-    const { user, darkMode, setDarkMode } = useAuth()
+    const { user, theme} = useAuth()
 
     return (
-        <div className={`min-h-screen flex ${darkMode ? 'dark' : ''}`}>
+        <div className={`min-h-screen flex ${theme === "dark" ? 'dark' : ''}`}>
         <div className="flex flex-col lg:flex-row w-full">
             <Sidebar />
             <main className="flex-1 lg:ms-64 mb-10  lg:mb-0 overflow-y-auto custom-scrollbar bg-linear-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-slate-900">
-            <Header darkMode={darkMode} setDarkMode={setDarkMode} />
+            <Header />
             <DashboardBody />
             </main>
             <BottomNav />

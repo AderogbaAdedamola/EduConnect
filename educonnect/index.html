@@ -9,7 +9,16 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
     /> -->
-    <title>educonnect</title>
+    <title>EduConnect</title>
+    <script>
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const storedTheme = localStorage.getItem('theme');
+      if (storedTheme === 'dark' || (!storedTheme && prefersDark)) {
+        document.documentElement.classList.add('dark')
+      } else {
+        document.documentElement.classList.remove('dark')
+      }
+    </script>
   </head>
   <body class="bg-linear-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-slate-900 font-sans text-slate-800 dark:text-white">
     <div id="root"></div>

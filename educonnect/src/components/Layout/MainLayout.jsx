@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useAuth } from "../../context/AuthContext"
-import Header from "../Layout/Header"
+import Header from "../Layout/QuickHeader"
 import Sidebar from "../Layout/Sidebar"
 import BottomNav from "../Layout/BottomNav"
 import Notification from "../Notification"
@@ -8,7 +8,7 @@ import AlartBox from "../AlartBox"
 import { Outlet } from "react-router-dom"
 
 function MainLayout() {
-    const { user, isCreatingQues, darkMode, setDarkMode } = useAuth()
+    const { user, isCreatingQues, theme, setTheme } = useAuth()
     const [notification, setNotification] = useState({
       message: "",
       type : "",
@@ -34,11 +34,11 @@ function MainLayout() {
           onClose={() => setAlart({ message: "", okWord: "", glowType: "normal"})}
           okFunction={() => console.log("positive action")}/>
 
-        <div className={`min-h-screen flex ${darkMode ? 'dark' : ''}`}>
+        <div className={`min-h-screen flex ${theme === "dark" ? 'dark' : ''}`}>
         <div className="flex flex-col lg:flex-row w-full">
             <Sidebar />
             <main className={ `flex-1 lg:ms-64 overflow-y-auto custom-scrollbar bg-linear-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-slate-900`}>
-            {!isCreatingQues && <Header darkMode={darkMode} setDarkMode={setDarkMode} />}
+            {!isCreatingQues && <Header />}
             <Outlet />
             </main>
             {!isCreatingQues && <BottomNav />}

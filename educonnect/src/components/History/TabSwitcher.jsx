@@ -18,7 +18,7 @@ export default function TabSwitcher({ tabs, activeTab, onTabChange, counts }) {
         </select>
       </div>
 
-      {/* Desktop: Pills */}
+      
       <div className="hidden sm:flex gap-2 bg-slate-100 dark:bg-slate-800 p-1.5 rounded-2xl w-fit">
         {tabs.map(tab => (
           <button

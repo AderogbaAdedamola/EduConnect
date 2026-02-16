@@ -6,8 +6,8 @@ import { Share2, MessageSquare, Sparkles, TrendingUp, Copy, ExternalLink, Users,
 import { useNavigate } from "react-router-dom"
 
 
-const QuickHeader = ({ darkMode, setDarkMode }) => {
-    const { user, toggleTheme } = useAuth()
+const QuickHeader = () => {
+    const { user, theme, setTheme } = useAuth()
     const navigate = useNavigate()
 
   return (
@@ -26,10 +26,10 @@ const QuickHeader = ({ darkMode, setDarkMode }) => {
         <div className="flex gap-3">
           {/* Dark Mode Toggle */}
           <button
-            onClick={() =>toggleTheme()}
+            onClick={() =>setTheme(theme === "dark" ? "light" : "dark")}
             className="w-10 h-10 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center shadow-sm hover:shadow-md transition-shadow"
           >
-            <Icon name={darkMode ? 'sun' : 'moon'} />
+            <Icon name={theme === "dark" ? 'sun' : 'moon'} />
           </button>
 
           {/* Notification Bell */}

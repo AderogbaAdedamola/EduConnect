@@ -1,6 +1,7 @@
 
 import { createContext, useContext, useState, useEffect } from "react"
 import { setAuthToken } from "../api/port"
+import { applyTheme, getInitialTheme } from "../utilities/theme"
 
 const AuthContext = createContext()
 
@@ -10,9 +11,10 @@ export function AuthProvider({ children }) {
     return storedUser ? JSON.parse(storedUser) : {}
   });
   const [accessToken, setAccessToken] = useState(null)
-  const [darkMode, setDarkMode] = useState(false)
-  const [isCreatingQues, setIsCreatingQues] = useState(false)
   setAuthToken(accessToken)
+  const [theme, setTheme] = useState(getInitialTheme())
+  const [darkMode, setDarkMode] = useState(theme === "dark" ? true : false)
+  const [isCreatingQues, setIsCreatingQues] = useState(false)
 
 
   const clearAuth = () => {
@@ -31,61 +33,9 @@ export function AuthProvider({ children }) {
     }
   }, [user, accessToken])
 
- // Read DARKMODE from the system
-  // useEffect(() =>{
-  //   document.documentElement.classList.toggle(
-  //       "dark",
-  //       localStorage.theme === "dark" ||
-  //         (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches),
-  //     )
-  //     setDarkMode(
-  //       localStorage.theme === "dark" ||
-  //         (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matchees)
-  //       )
-  // },[])
-
-  // //Toggle Theme
-  // const toggleTheme =() =>{
-  // // Read CURRENT state from DOM, not React state
-  //   const currentIsDark = document.documentElement.classList.contains('dark');
-  //   const newDarkMode = !darkMode;
-    
-  //   if(newDarkMode){
-  //     localStorage.setItem("theme", "dark");
-  //     document.documentElement.classList.add('dark');
-  //     setDarkMode(true)
-  //     console.log("dark mode ON");
-  //   } else {
-  //     localStorage.setItem("theme", "light");
-  //     document.documentElement.classList.remove('dark');
-  //     setDarkMode(false)
-  //     console.log("light mode ON");
-  //   }     
-  //   }
-
-  // useEffect(() => {
-  //   const root = document.documentElement;
-  //   if (theme === 'dark') {
-  //     root.classList.add('dark');
-  //   } else {
-  //     root.classList.remove('dark');
-  //   }
-  //   localStorage.setItem('theme', theme);
-  // }, [theme]);
-
-  // // Listen for system changes (only when no explicit choice)
-  // useEffect(() => {
-  //   const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    
-  //   const handleChange = () => {
-  //     if (!localStorage.getItem('theme')) {
-  //       setTheme(mediaQuery.matches ? 'dark' : 'light');
-  //     }
-  //   };
-    
-  //   mediaQuery.addEventListener('change', handleChange);
-  //   return () => mediaQuery.removeEventListener('change', handleChange);
-  // }, []);
+  useEffect(() => {
+    applyTheme(theme);
+  }, [theme]);
 
   return (
     <AuthContext.Provider value={{ 
@@ -96,9 +46,10 @@ export function AuthProvider({ children }) {
       clearAuth,
       darkMode,
       setDarkMode,
+      theme,
+      setTheme,
       isCreatingQues,
       setIsCreatingQues,
-      // toggleTheme
       }}>
       {children}
     </AuthContext.Provider>
