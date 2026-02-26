@@ -1,9 +1,9 @@
 import axios from "axios";
-import useRefreshToken from '../hooks/useRefreshToken';
+
 
 export const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api',
-  withCredentials: true, // Crucial for HTTP-only Refresh Token cookies
+  withCredentials: true, 
   headers: {
     'Content-Type': 'application/json',
   },
@@ -54,7 +54,6 @@ api.interceptors.response.use(
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
       try {
-        // Call the refresh endpoint
         const res = await axios.post(`${api.defaults.baseURL}/auth/refresh-token`, {}, { withCredentials: true });
         const { accessToken } = res.data;
         
@@ -62,7 +61,6 @@ api.interceptors.response.use(
         originalRequest.headers.Authorization = `Bearer ${accessToken}`;
         return api(originalRequest);
       } catch (refreshError) {
-        // If refresh fails, the user must log in again
         window.location.href = '/login';
         return Promise.reject(refreshError);
       }

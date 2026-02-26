@@ -15,12 +15,13 @@ import RenderNeededAttention from "../components/Dashboard/RenderNeededAttention
 
 
 const DashboardBody = () => {
-    const { user, accessToked} = useAuth()
+    const { user, accessToken} = useAuth()
     const { refresh } = useRefreshToken()
     useEffect(() =>{
         const getData = async () => {
            try{
-                const response = await api.get("/profile",
+                const response = await api.get("/role-codes",
+                // const response = await api.get("/profile",
                 {
                     headers:{
                         Authorization: `Bearer ${accessToken}`

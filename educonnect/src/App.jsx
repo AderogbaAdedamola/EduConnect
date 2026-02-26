@@ -21,11 +21,7 @@ import Response from "./pages/Response"
 
 
 function AppContent() {
-  // const { accessToken, setAccessToken, clearAuth } = useAuth()
-
-  // useEffect(() => {
-  //   attachInterceptors(() => accessToken, setAccessToken, clearAuth);
-  // }, [accessToken, setAccessToken, clearAuth]);
+ 
   return (
       // <Routes>
       //     <Route path="/create-question"element={<CreateQuestion />} />

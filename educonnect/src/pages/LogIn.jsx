@@ -75,7 +75,7 @@ export default function LogIn(){
 
     async function logInUser(logInInfo) {
         try {
-            const response = await api.post("/auth/user", logInInfo,
+            const response = await api.post("/auth/login", logInInfo,
             {
                 headers: { 'Content-Type': 'application/json' },
                 withCredentials: true,
@@ -94,8 +94,7 @@ export default function LogIn(){
             setUser(response.data.user)
             setAccessToken(response.data.accessToken)
             localStorage.setItem("user", JSON.stringify(response.data.user))
-            console.log(response.data.accessToken)
-            setTimeout(() => navigate(from, { replace:true }),2000)
+            setTimeout(() => navigate(from, { replace:true }),300)
         } catch (error) {
             console.error("Login Error:", error);
 

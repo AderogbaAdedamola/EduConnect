@@ -19,18 +19,19 @@ const useRefreshToken = () => {
         
         try {
             const response = await axiosTest.post(
-                "/auth/refresh",
+                "/auth/refresh-token",
                 {},
                 { 
                     withCredentials: true,
                     headers: {
-                        // Don't include expired access token
+                        
                     }
                 }
             );
             
             const newAccessToken = response?.data?.accessToken;
-            const newUser = response?.data?.user; // If backend returns user
+            const newUser = response?.data?.user; 
+            console.log(`refreshed ${newAccessToken} ${newUser}` )
             
             if (!newAccessToken) {
                 throw new Error('Refresh token failed: No access token received');
