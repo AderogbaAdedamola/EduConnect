@@ -24,7 +24,7 @@ const BottomNav = () => {
       {navItems.map((item) => {
         const isActive = location.pathname.toLowerCase().startsWith(item.path)
         return(
-        x<button
+        <button
           key={item.label}
           onClick={() => navigateTo(item.path)}
           className={`flex flex-col items-center gap-1 ${isActive ? 'text-primary' : 'text-slate-400'}`}
