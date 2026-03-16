@@ -6,7 +6,7 @@ import Image from '@tiptap/extension-image'
 import CodeBlock from '@tiptap/extension-code-block'
 import Icon from '../common/Icon'
 
-// ─── Question Types ───────────────────────────────────────────────────────────
+// Question Types 
 export const QUESTION_TYPES = [
   { value: 'short',     label: 'Short Answer' },
   { value: 'paragraph', label: 'Paragraph' },
@@ -19,7 +19,7 @@ export const QUESTION_TYPES = [
 const HAS_OPTIONS = ['mcq', 'checkbox', 'dropdown']
 const OPTION_LABELS = ['A', 'B', 'C', 'D', 'E', 'F']
 
-// ─── 3-dot Dropdown Menu ──────────────────────────────────────────────────────
+// 3-dot Dropdown Menu
 function ThreeDotMenu({ index, onDuplicate, onDelete }) {
   const [open, setOpen] = useState(false)
   const menuRef = useRef(null)
@@ -78,7 +78,7 @@ function ThreeDotMenu({ index, onDuplicate, onDelete }) {
   )
 }
 
-// ─── Desktop Action Buttons ───────────────────────────────────────────────────
+// Desktop Action Buttons
 function DesktopActions({ index, onDuplicate, onDelete }) {
   return (
     <div className="hidden md:flex items-center gap-1">
@@ -104,7 +104,7 @@ function DesktopActions({ index, onDuplicate, onDelete }) {
   )
 }
 
-// ─── Toolbar Button ───────────────────────────────────────────────────────────
+// Toolbar Button 
 function ToolbarBtn({ onClick, active, title, children }) {
   return (
     <button
@@ -127,7 +127,7 @@ function ToolbarBtn({ onClick, active, title, children }) {
   )
 }
 
-// ─── Rich Text Editor ─────────────────────────────────────────────────────────
+// Rich Text Editor
 function RichTextEditor({ value, onChange, placeholder }) {
   const [imageSelected, setImageSelected] = useState(false)
 
@@ -266,7 +266,7 @@ function RichTextEditor({ value, onChange, placeholder }) {
   )
 }
 
-// ─── Options Editor ───────────────────────────────────────────────────────────
+// Options Editor 
 function OptionsEditor({ question, index, onUpdate }) {
   const isCheckbox = question.type === 'checkbox'
 
@@ -389,7 +389,7 @@ function OptionsEditor({ question, index, onUpdate }) {
   )
 }
 
-// ─── Collapsed Preview ────────────────────────────────────────────────────────
+// Collapsed Preview
 function CollapsedPreview({ question, index, onActivate, onDelete, onDuplicate }) {
   const typeLabel = QUESTION_TYPES.find(t => t.value === question.type)?.label ?? question.type
   const plainText = question.text ? question.text.replace(/<[^>]*>/g, '').trim() : ''
@@ -437,7 +437,7 @@ function CollapsedPreview({ question, index, onActivate, onDelete, onDuplicate }
   )
 }
 
-// ─── Active Card ──────────────────────────────────────────────────────────────
+// Active Card 
 function ActiveCard({ question, index, questionType, onUpdate, onDelete, onDuplicate }) {
   const hasOptions = HAS_OPTIONS.includes(question.type)
   const requiredToggleId = `q${index}-required`
@@ -564,7 +564,7 @@ function ActiveCard({ question, index, questionType, onUpdate, onDelete, onDupli
   )
 }
 
-// ─── Main Export ──────────────────────────────────────────────────────────────
+// Main Export 
 export default function QuestionCard({ question, index, questionType, isActive, onActivate, onUpdate, onDelete, onDuplicate }) {
   if (isActive) {
     return <ActiveCard question={question} index={index} questionType={questionType} onUpdate={onUpdate} onDelete={onDelete} onDuplicate={onDuplicate} />
