@@ -3,6 +3,7 @@ import { useState, useEffect } from "react"
 import { Routes, Route, Link, BrowserRouter ,Navigate } from "react-router-dom"
 import { AuthProvider, useAuth } from "./context/AuthContext"
 
+// General pages
 import LandingPage from "./pages/LandingPage"
 import LogIn from "./pages/LogIn"
 import SignUp from "./pages/SignUp"
@@ -11,10 +12,11 @@ import ForgetPassword from "./pages/ForgetPassword"
 import ProtectedRoute from "./components/ProtectedRoute"
 import MainLayout from "./components/Layout/MainLayout"
 
+// Protected pages
 import Dashboard from "./pages/Dashboard"
 import CreateQuestion from "./pages/CreateQuestion"
 import History from "./pages/History"
-import AnswerQuestion from "./pages/AnswerQuestion"
+import DiscoverQuestion from "./pages/DiscoverQuestion"
 import Response from "./pages/Response"
 
 
@@ -56,7 +58,7 @@ function AppContent() {
           <Route path="/discover-questions"element={
           <ProtectedRoute>
           
-              <AnswerQuestion />
+              <DiscoverQuestion />
             
           </ProtectedRoute>
           } />

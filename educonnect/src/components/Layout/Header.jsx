@@ -27,26 +27,26 @@ const Header = () => {
           {/* Dark Mode Toggle */}
           <button
             onClick={() =>setTheme(theme === "dark" ? "light" : "dark")}
-            className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center shadow-sm hover:shadow-md transition-shadow"
+            className="w-10 h-10 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center shadow-sm hover:shadow-md transition-shadow"
           >
             <Icon name={theme === "dark" ? 'sun' : 'moon'} />
           </button>
 
           {/* Notification Bell */}
-          <button className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center relative shadow-sm hover:shadow-md transition-shadow">
+          <button className="w-10 h-10 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center relative shadow-sm hover:shadow-md transition-shadow">
             <Icon name="bell"/>
-            <span className="absolute top-2.5 right-2.5 sm:top-3 sm:right-3 w-2.5 h-2.5 bg-red-500 border-2 border-white dark:border-slate-800 rounded-full"></span>
+            <span className="absolute top-2 right-2 w-2.5 h-2.5 bg-red-500 border-2 border-white dark:border-slate-800 rounded-full"></span>
           </button>
 
           {/* User profile Icon (Small Screen) */}
           <div className="block lg:hidden">
-            <button className="w-10 h-10 sm:w-12 sm:h-12 bg-linear-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-xl font-bold  border dark:border-slate-200 border-slate-700  shadow-sm hover:shadow-md transition-shadow">
+            <button className="w-10 h-10 bg-linear-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-xl font-bold  border dark:border-slate-200 border-slate-700  shadow-sm hover:shadow-md transition-shadow">
               {"A"}
             </button>
           </div>
 
           {/* New Question Button (Desktop) */}
-          <div className="hidden sm:block">
+          <div className="hidden sm:block"> 
             <Button
               variant="primary"
               icon= "message-square-plus"
@@ -60,7 +60,7 @@ const Header = () => {
         </div>
       </div>
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold mt-1 truncate">Hi, {user?.firstname || "Adedamola"}! 👋</h1>
+        <h1 className="text-3xl font-bold mt-1 truncate">Hi, {user?.firstname || "User"}! 👋</h1>
       </div>
     </header>
   );

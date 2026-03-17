@@ -35,7 +35,7 @@ const QuickHeader = () => {
           {/* Notification Bell */}
           <button className="w-10 h-10  rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center relative shadow-sm hover:shadow-md transition-shadow">
             <Icon name="bell"/>
-            <span className="absolute top-2.5 right-2 w-2.5 h-2.5 bg-red-500 border-2 border-white dark:border-slate-800 rounded-full"></span>
+            <span className="absolute top-2 right-2 w-2.5 h-2.5 bg-red-500 border-2 border-white dark:border-slate-800 rounded-full"></span>
           </button>
 
           {/* User profile Icon (Small Screen) */}

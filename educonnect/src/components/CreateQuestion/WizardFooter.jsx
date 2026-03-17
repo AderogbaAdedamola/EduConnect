@@ -9,10 +9,8 @@ export default function WizardFooter({ currentStep, onBack, onNext, onCancel, fo
     if (currentStep === 2) return formData.questionType !== '';
     if (currentStep === 3) return formData.questions.length > 0;
     if (currentStep === 4) {
-      if (!formData.askUserData) return true;
-      return formData.userDataFields &&
-             formData.userDataFields.length > 0 &&
-             formData.userDataFields.every(field => field.placeholder.trim());
+      // Step 4 is always valid — all fields are optional or have safe defaults
+      return true
     }
     return true;
   };

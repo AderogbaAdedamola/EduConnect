@@ -1,61 +1,60 @@
-// src/components/Discover/StickySearchBar.jsx
 import { memo } from 'react'
 import Icon from '../common/Icon'
 
-const StickySearchBar = memo(({ 
-  searchQuery, 
-  onSearchChange, 
+const StickySearchBar = memo(({
+  searchQuery,
+  onSearchChange,
   onClearSearch,
   isSticky,
   showAdvancedToggle,
   onToggleAdvanced,
-  isAdvancedOpen
+  isAdvancedOpen,
 }) => {
   return (
-    <div 
-      className={`sticky top-0 z-10 bg-linear-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-slate-900 backdrop-blur-sm transition-all duration-200 ${
-        isSticky 
-          ? 'pt-4 pb-3 border-b border-slate-200 dark:border-slate-700 shadow-sm -mx-4 md:-mx-6 px-4 md:px-6' 
-          : 'pb-4'
+    <div
+      className={`sticky top-0 z-10 transition-all duration-200 ${
+        isSticky
+          ? '-mx-4 md:-mx-6 px-4 md:px-6 pt-3 pb-3 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-700 shadow-sm'
+          : 'pb-1'
       }`}
-      style={{
-        willChange: 'transform'
-      }}
     >
-      {/* Search Bar */}
+      {/* Search input */}
       <div className="relative">
-        <Icon 
-          name="search" 
-          className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400"
+        <Icon
+          name="search"
+          aria-hidden="true"
+          className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none"
         />
         <input
-          type="text"
+          type="search"
           value={searchQuery}
           onChange={onSearchChange}
-          placeholder="Search questions..."
-          className="w-full bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-lg pl-10 pr-4 py-2.5 outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-slate-900 dark:text-white text-sm"
+          placeholder="Search questions, topics, creators..."
+          aria-label="Search questions"
+          className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl pl-10 pr-10 py-2.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:border-blue-500 text-slate-900 dark:text-white placeholder:text-slate-400 transition-all"
         />
         {searchQuery && (
           <button
             onClick={onClearSearch}
-            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-slate-600"
+            aria-label="Clear search"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded"
           >
-            <Icon name="x" />
+            <Icon name="x" aria-hidden="true" />
           </button>
         )}
       </div>
 
-      {/* Advanced Filters Toggle */}
+      {/* Advanced filter toggle — only when not sticky */}
       {showAdvancedToggle && !isSticky && (
-        <div className="mt-3 transition-opacity duration-200">
-          <button
-            onClick={onToggleAdvanced}
-            className="flex items-center gap-2 text-sm text-blue-600 dark:text-blue-400 font-medium"
-          >
-            <Icon name={isAdvancedOpen ? 'chevron-up' : 'chevron-down'} />
-            <span>Advanced Filters</span>
-          </button>
-        </div>
+        <button
+          type="button"
+          onClick={onToggleAdvanced}
+          aria-expanded={isAdvancedOpen}
+          className="mt-2.5 flex items-center gap-1.5 text-xs font-semibold text-blue-600 dark:text-blue-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded px-0.5"
+        >
+          <Icon name={isAdvancedOpen ? 'chevron-up' : 'sliders-horizontal'} aria-hidden="true" />
+          {isAdvancedOpen ? 'Hide filters' : 'Filters'}
+        </button>
       )}
     </div>
   )

@@ -5,7 +5,7 @@ import WizardFooter from './WizardFooter'
 import Step1BasicInfo from './Step1BasicInfo'
 import Step2QuestionType from './Step2QuestionType'
 import Step3CreateQuestions from './Step3CreateQuestions'
-import Step4UserInfo from "./Step4UserInfo"
+import Step4SettingsAccess from "./Step4SettingsAccess"
 import { useAuth } from "../../context/AuthContext"
 
 
@@ -14,10 +14,11 @@ import { useAuth } from "../../context/AuthContext"
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1)
   
-  // Form data state
+  // Form data 
   const [formData, setFormData] = useState({
     // Step 1: Basic Info
     title: '',
+    description: '',
     category: '',
     aiEnabled: true,
     
@@ -27,7 +28,7 @@ import { useAuth } from "../../context/AuthContext"
     // Step 3: Questions
     questions: [],
     // step 4 (optional)
-    respondantData : {}
+    
   });
 
   const handleNext = () => {
@@ -88,7 +89,7 @@ import { useAuth } from "../../context/AuthContext"
                 <Step3CreateQuestions formData={formData}  setFormData={setFormData} />
               )}
               {currentStep === 4 && (
-                <Step4UserInfo formData={formData}  setFormData={setFormData} />
+                <Step4SettingsAccess formData={formData}  setFormData={setFormData} />
               )}
             </div>
 
