@@ -18,6 +18,7 @@ import CreateQuestion from "./pages/CreateQuestion"
 import History from "./pages/History"
 import DiscoverQuestion from "./pages/DiscoverQuestion"
 import Response from "./pages/Response"
+import Profile from "./pages/Profile"
 
 
 
@@ -60,6 +61,13 @@ function AppContent() {
           
               <DiscoverQuestion />
             
+          </ProtectedRoute>
+          } />
+          <Route path="/profile:id"element={
+          <ProtectedRoute>
+            <MainLayout >
+              <Profile />
+            </MainLayout>
           </ProtectedRoute>
           } />
           
