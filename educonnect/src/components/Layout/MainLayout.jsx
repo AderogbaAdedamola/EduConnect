@@ -6,6 +6,7 @@ import BottomNav from "../Layout/BottomNav"
 import Notification from "../Notification"
 import AlartBox from "../AlartBox"
 import { Outlet } from "react-router-dom"
+import { useSidebarWidth } from "../../hooks/useSidebarWidth"
 
 function MainLayout() {
     const { user, isCreatingQues, theme, setTheme } = useAuth()
@@ -18,6 +19,7 @@ function MainLayout() {
       okWord: "",
       glowType: "",
     })
+    const sidebarMargin = useSidebarWidth()
     
 
     return (
@@ -37,7 +39,7 @@ function MainLayout() {
         <div className={`min-h-screen flex ${theme === "dark" ? 'dark' : ''}`}>
         <div className="flex flex-col lg:flex-row w-full">
             <Sidebar />
-            <main className={ `flex-1 lg:ms-64 overflow-y-auto custom-scrollbar bg-linear-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-slate-900`}>
+            <main className={ `flex-1 ${sidebarMargin} overflow-y-auto custom-scrollbar bg-linear-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-slate-900`}>
             {!isCreatingQues && <Header />}
             <Outlet />
             </main>

@@ -12,6 +12,7 @@ import BottomNav from '../components/Layout/BottomNav';
 import { Share2, MessageSquare, Sparkles, TrendingUp, Copy, ExternalLink, Users, Clock, CheckCircle2, AlertCircle } from 'lucide-react';
 import { api } from "../api/port"
 import RenderNeededAttention from "../components/Dashboard/RenderNeededAttention"
+import { useSidebarWidth } from "../hooks/useSidebarWidth"
 
 
 const DashboardBody = () => {
@@ -155,12 +156,13 @@ const DashboardBody = () => {
 
   function Dashboard() {
     const { user, theme} = useAuth()
+    const sidebarMargin = useSidebarWidth()
 
     return (
         <div className={`min-h-screen flex ${theme === "dark" ? 'dark' : ''}`}>
         <div className="flex flex-col lg:flex-row w-full">
             <Sidebar />
-            <main className="flex-1 lg:ms-64 mb-10  lg:mb-0 overflow-y-auto custom-scrollbar bg-linear-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-slate-900">
+            <main className={`flex-1 ${sidebarMargin} mb-10  lg:mb-0 overflow-y-auto custom-scrollbar bg-linear-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-slate-900`}>
             <Header />
             <DashboardBody />
             </main>

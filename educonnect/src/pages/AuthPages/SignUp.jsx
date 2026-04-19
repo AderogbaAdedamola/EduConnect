@@ -1,14 +1,14 @@
 import { useState } from "react"
 import { Eye, EyeOff, Key } from 'lucide-react'
-import logo from "../assets/educonnect-logo.png"
+import logo from "../../assets/educonnect-logo.png"
 import { Link } from "react-router-dom"
-import InputField from "../components/InputField"
-import googleIcon from "../assets/google-icon.png"
-import appleIcon from "../assets/apple-icon.png"
-import { api } from "../api/port"
+import InputField from "../../components/InputField"
+import googleIcon from "../../assets/google-icon.png"
+import appleIcon from "../../assets/apple-icon.png"
+import { api } from "../../api/port"
 import { useNavigate } from "react-router-dom"
-import AlartBox from "../components/AlartBox"
-import Notification from "../components/Notification"
+import AlartBox from "../../components/AlartBox"
+import Notification from "../../components/Notification"
 
 export default function SignUp(){
     const [showPassword, setShowPassword] = useState(false)

@@ -5,6 +5,7 @@ import BottomNav from '../components/Layout/BottomNav';
 import QuickHeader from '../components/Layout/QuickHeader';
 import HistoryList from '../components/History/HistoryList';
 import TabSwitcher from '../components/History/TabSwitcher';
+import { useSidebarWidth } from "../hooks/useSidebarWidth"
 
 const createdQuestions = [
   { id: 1, title: 'How do you solve quadratic equations?',  type: 'MCQ'          },
@@ -74,13 +75,15 @@ function HistoryBody() {
 
 export default function History() {
   const { theme } = useAuth();
+  const sidebarMargin = useSidebarWidth()
+  
 
   return (
     <div className="min-h-screen flex ">
       <div className="flex flex-col lg:flex-row w-full">
         <Sidebar />
         {/* overflow-hidden on main stops the page from scrolling */}
-        <main className="flex-1 lg:ms-64 mb-4 lg:mb-0 overflow-hidden bg-linear-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-slate-900">
+        <main className={` flex-1 ${sidebarMargin} mb-4 lg:mb-0 overflow-hidden bg-linear-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-slate-900 `}>
           <QuickHeader />
           <HistoryBody />
         </main>

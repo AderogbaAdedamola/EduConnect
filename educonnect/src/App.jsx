@@ -5,9 +5,9 @@ import { AuthProvider, useAuth } from "./context/AuthContext"
 
 // General pages
 import LandingPage from "./pages/LandingPage"
-import LogIn from "./pages/LogIn"
-import SignUp from "./pages/SignUp"
-import ForgetPassword from "./pages/ForgetPassword"
+import LogIn from "./pages/AuthPages/LogIn"
+import SignUp from "./pages/AuthPages/SignUp"
+import ForgetPassword from "./pages/AuthPages/ForgetPassword"
 
 import ProtectedRoute from "./components/ProtectedRoute"
 import MainLayout from "./components/Layout/MainLayout"

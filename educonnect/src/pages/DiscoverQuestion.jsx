@@ -7,6 +7,8 @@ import BottomNav from "../components/Layout/BottomNav"
 import Notification from "../components/Notification"
 import AlartBox from "../components/AlartBox"
 import DiscoverBody from "../components/Discover/DiscoverBody"
+import { useSidebarWidth } from "../hooks/useSidebarWidth"
+
 
 function DiscoverQuestions() {
   const { user, darkMode, setDarkMode } = useAuth()
@@ -19,6 +21,8 @@ function DiscoverQuestions() {
     okWord: "",
     glowType: "",
   })
+  const sidebarMargin = useSidebarWidth()
+
 
   return (
     <>
@@ -39,7 +43,7 @@ function DiscoverQuestions() {
       <div className={`min-h-screen flex ${darkMode ? 'dark' : ''}`}>
         <div className="flex flex-col lg:flex-row w-full">
           <Sidebar />
-          <main className={`flex-1 lg:ms-64 overflow-y-auto custom-scrollbar bg-linear-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-slate-900`}>
+          <main className={`flex-1 ${sidebarMargin} overflow-y-auto custom-scrollbar bg-linear-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-slate-900`}>
             {/* <Header darkMode={darkMode} setDarkMode={setDarkMode} /> */}
             <DiscoverBody />
           </main>
