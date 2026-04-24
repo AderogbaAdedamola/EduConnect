@@ -12,7 +12,7 @@ import BottomNav from '../components/Layout/BottomNav';
 import { Share2, MessageSquare, Sparkles, TrendingUp, Copy, ExternalLink, Users, Clock, CheckCircle2, AlertCircle } from 'lucide-react';
 import { api } from "../api/port"
 import RenderNeededAttention from "../components/Dashboard/RenderNeededAttention"
-import { useSidebarWidth } from "../hooks/useSidebarWidth"
+import { useSidebarWidth } from "../hooks/UseSideBarWidth"
 
 
 const DashboardBody = () => {

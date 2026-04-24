@@ -5,7 +5,7 @@ import BottomNav from '../components/Layout/BottomNav';
 import QuickHeader from '../components/Layout/QuickHeader';
 import HistoryList from '../components/History/HistoryList';
 import TabSwitcher from '../components/History/TabSwitcher';
-import { useSidebarWidth } from "../hooks/useSidebarWidth"
+import { useSidebarWidth } from "../hooks/UseSideBarWidth"
 
 const createdQuestions = [
   { id: 1, title: 'How do you solve quadratic equations?',  type: 'MCQ'          },

@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useSidebarWidth } from '../hooks/useSidebarWidth'
+import { useSidebarWidth } from '../hooks/UseSideBarWidth'
 import { useAuth } from '../context/AuthContext'
 import Icon from '../components/common/Icon'
 import BottomNav from '../components/Layout/BottomNav'

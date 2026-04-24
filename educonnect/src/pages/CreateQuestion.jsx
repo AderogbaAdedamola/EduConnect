@@ -6,7 +6,7 @@ import BottomNav from "../components/Layout/BottomNav"
 import Notification from "../components/Notification"
 import AlartBox from "../components/AlartBox"
 import CreateQuestionMain from '../components/CreateQuestion/CreateQuestionMain'
-import { useSidebarWidth } from "../hooks/useSidebarWidth"
+import { useSidebarWidth } from "../hooks/UseSideBarWidth"
 
 
 function CreateQuestionBody() {
