@@ -6,7 +6,7 @@ import BottomNav from "../Layout/BottomNav"
 import Notification from "../Notification"
 import AlartBox from "../AlartBox"
 import { Outlet } from "react-router-dom"
-import { useSidebarWidth } from "../../hooks/UseSideBarWidth"
+import { useSidebarWidth } from "../../hooks/useSidebarWidth"
 
 function MainLayout() {
     const { user, isCreatingQues, theme, setTheme } = useAuth()

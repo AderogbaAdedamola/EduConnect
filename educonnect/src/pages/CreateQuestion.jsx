@@ -6,11 +6,13 @@ import BottomNav from "../components/Layout/BottomNav"
 import Notification from "../components/Notification"
 import AlartBox from "../components/AlartBox"
 import CreateQuestionMain from '../components/CreateQuestion/CreateQuestionMain'
-import { useSidebarWidth } from "../hooks/UseSideBarWidth"
+import { useSidebarWidth } from "../hooks/useSidebarWidth"
+import { useNavigate } from 'react-router-dom'
 
 
 function CreateQuestionBody() {
     const { isCreatingQues, setIsCreatingQues } = useAuth()
+    const navigate = useNavigate()
     const [createManually, setCreateManually] = useState(false)
     const [createByAI, setCreateByAI] = useState(false)
 
@@ -51,10 +53,7 @@ function CreateQuestionBody() {
             Generate questions using AI assistance
           </p>
           <button 
-            onClick={() =>{ 
-              setIsCreatingQues(true)
-              setCreateByAI(true)}
-            }
+            onClick={() => navigate('/create-with-ai')}
             className="w-full bg-linear-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white py-2.5 rounded-lg font-semibold"
           >
             Use AI Assistant

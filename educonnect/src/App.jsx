@@ -19,6 +19,7 @@ import History from "./pages/History"
 import DiscoverQuestion from "./pages/DiscoverQuestion"
 import Response from "./pages/Response"
 import Profile from "./pages/Profile"
+import AIChatPage from "./components/CreateQuestion/AIChatPage"
 
 
 
@@ -44,6 +45,11 @@ function AppContent() {
             <CreateQuestion />
           </ProtectedRoute>
           } />
+        <Route path="/create-with-ai" element={
+          <ProtectedRoute>
+            <AIChatPage />
+          </ProtectedRoute>
+        } />
         <Route path="/history"element={
           <ProtectedRoute>
             <History />

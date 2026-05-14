@@ -1,5 +1,5 @@
-import { useRef, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useRef, useState, useEffect } from 'react'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import WizardHeader from './WizardHeader'
 import WizardFooter from './WizardFooter'
 import Step1BasicInfo from './Step1BasicInfo'
@@ -7,11 +7,13 @@ import Step2QuestionType from './Step2QuestionType'
 import Step3CreateQuestions from './Step3CreateQuestions'
 import Step4SettingsAccess from "./Step4SettingsAccess"
 import { useAuth } from "../../context/AuthContext"
+import { parseAIResponse } from '../../utilities/aiParser'
 
 
  function CreateQuestionMain({setCreateManually, setCreateByAI}) {
   const { isCreatingQues, setIsCreatingQues } = useAuth()
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams()
   const [currentStep, setCurrentStep] = useState(1)
   
   // Form data 
@@ -27,9 +29,52 @@ import { useAuth } from "../../context/AuthContext"
     
     // Step 3: Questions
     questions: [],
-    // step 4 (optional)
     
+    // Step 4: Settings & Access
+    quizSettings: {
+      timerMin: 15,
+      timerSec: 0,
+      pointsPerQuestion: 10,
+    },
+    settings: {
+      requireLogin: false,
+      allowAnonymous: true,
+      oneResponseOnly: false,
+      showRespondentsToCreator: true,
+      showResultsToRespondent: true,
+      hasDeadline: false,
+      deadline: '',
+      collectUserData: false,
+    },
+    userDataFields: [],
   });
+
+  // Handle AI pre-fill
+  useEffect(() => {
+    if (searchParams.get('from') === 'ai') {
+      const savedAI = localStorage.getItem('ai_generated_questions')
+      if (savedAI) {
+        try {
+          const { raw } = JSON.parse(savedAI)
+          const parsed = parseAIResponse(raw)
+          
+          setFormData(prev => ({
+            ...prev,
+            title: parsed.title || prev.title,
+            description: parsed.description || prev.description,
+            questions: parsed.questions.length > 0 ? parsed.questions : prev.questions,
+            questionType: 'flexible' // Default to flexible for AI generation
+          }))
+          
+          // Switch to manual creation mode if needed
+          setCreateManually(true)
+          setIsCreatingQues(true)
+        } catch (err) {
+          console.error('Failed to parse AI questions:', err)
+        }
+      }
+    }
+  }, [searchParams, setCreateManually, setIsCreatingQues])
 
   const handleNext = () => {
     if (currentStep < 4) {

@@ -7,7 +7,7 @@ import BottomNav from "../components/Layout/BottomNav"
 import Notification from "../components/Notification"
 import AlartBox from "../components/AlartBox"
 import DiscoverBody from "../components/Discover/DiscoverBody"
-import { useSidebarWidth } from "../hooks/UseSideBarWidth"
+import { useSidebarWidth } from "../hooks/useSidebarWidth"
 
 
 function DiscoverQuestions() {
