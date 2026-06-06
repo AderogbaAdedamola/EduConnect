@@ -1,9 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useSidebarWidth } from '../../hooks/useSidebarWidth'
-import { useAuth } from '../../context/AuthContext'
 import Icon from '../common/Icon'
-import BottomNav from '../Layout/BottomNav'
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 const TABS_STORAGE_KEY = 'ai_chat_tabs'
@@ -147,11 +144,8 @@ function EmptyChat({ onSuggestion }) {
   )
 }
 
-// ─── Main Page ────────────────────────────────────────────────────────────────
-export default function AIChatPage() {
+export default function AIAssistantTab() {
   const navigate   = useNavigate()
-  const { theme }  = useAuth()
-  const sidebarMargin = useSidebarWidth()
   const messagesEndRef = useRef(null)
   const inputRef = useRef(null)
 
@@ -335,32 +329,19 @@ Be conversational and helpful. Ask clarifying questions if needed (subject, diff
   }
 
   return (
-    <div className={`min-h-screen flex ${theme === 'dark' ? 'dark' : ''}`}>
-      <div className="flex flex-col lg:flex-row w-full">
-
-        {/* Sidebar rendered by parent layout — just offset here */}
-        <main className={`flex-1 ${sidebarMargin} flex flex-col h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-slate-900`}>
-
-          {/* ── Top Bar ───────────────────────────────────────── */}
-          <div className="shrink-0 bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 px-4 py-3">
-            <div className="flex items-center justify-between gap-3">
-              {/* Back + Title */}
-              <div className="flex items-center gap-3">
-                <button
-                  type="button"
-                  onClick={() => navigate('/create-question')}
-                  aria-label="Back to create question"
-                  className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
-                >
-                  <Icon name="arrow-left" />
-                </button>
-                <div className="flex items-center gap-2">
-                  <div className="w-7 h-7 bg-purple-100 dark:bg-purple-900/40 rounded-lg flex items-center justify-center">
-                    <Icon name="sparkles" className="text-purple-600 dark:text-purple-400 text-sm" />
-                  </div>
-                  <span className="text-sm font-bold text-slate-900 dark:text-white">Create with AI</span>
-                </div>
+    <div className="flex-1 flex flex-col h-full bg-transparent">
+      {/* ── Top Bar ───────────────────────────────────────── */}
+      <div className="shrink-0 bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm border-b border-slate-200 dark:border-slate-700 px-4 py-3">
+        <div className="flex items-center justify-between gap-3">
+          {/* Title */}
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
+              <div className="w-7 h-7 bg-purple-100 dark:bg-purple-900/40 rounded-lg flex items-center justify-center">
+                <Icon name="sparkles" className="text-purple-600 dark:text-purple-400 text-sm" />
               </div>
+              <span className="text-sm font-bold text-slate-900 dark:text-white">Create with AI</span>
+            </div>
+          </div>
 
               {/* Actions */}
               <div className="flex items-center gap-2">
@@ -432,39 +413,35 @@ Be conversational and helpful. Ask clarifying questions if needed (subject, diff
             </div>
           )}
 
-          {/* ── Input Bar ─────────────────────────────────────── */}
-          <div className="shrink-0 px-4 pb-4">
-            <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-sm">
-              <textarea
-                ref={inputRef}
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyDown={handleKeyDown}
-                placeholder="Describe the questions you want to create..."
-                rows={3}
-                aria-label="Message input"
-                className="w-full bg-transparent px-4 pt-3 pb-1 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 outline-none resize-none"
-              />
-              <div className="flex items-center justify-between px-3 pb-2.5">
-                <p className="text-xs text-slate-400">
-                  Enter to send · Shift+Enter for new line
-                </p>
-                <button
-                  type="button"
-                  onClick={() => sendMessage()}
-                  disabled={!input.trim() || loading}
-                  aria-label="Send message"
-                  className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 disabled:opacity-40 disabled:cursor-not-allowed text-white text-xs font-semibold rounded-xl transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
-                >
-                  <Icon name="send" className="text-xs" />
-                  Send
-                </button>
-              </div>
-            </div>
+      {/* ── Input Bar ─────────────────────────────────────── */}
+      <div className="shrink-0 px-4 pb-4">
+        <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-sm">
+          <textarea
+            ref={inputRef}
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={handleKeyDown}
+            placeholder="Describe the questions you want to create..."
+            rows={3}
+            aria-label="Message input"
+            className="w-full bg-transparent px-4 pt-3 pb-1 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 outline-none resize-none"
+          />
+          <div className="flex items-center justify-between px-3 pb-2.5">
+            <p className="text-xs text-slate-400">
+              Enter to send · Shift+Enter for new line
+            </p>
+            <button
+              type="button"
+              onClick={() => sendMessage()}
+              disabled={!input.trim() || loading}
+              aria-label="Send message"
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 disabled:opacity-40 disabled:cursor-not-allowed text-white text-xs font-semibold rounded-xl transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+            >
+              <Icon name="send" className="text-xs" />
+              Send
+            </button>
           </div>
-
-        </main>
-        <BottomNav />
+        </div>
       </div>
     </div>
   )

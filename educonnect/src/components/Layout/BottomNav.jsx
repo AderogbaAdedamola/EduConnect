@@ -9,7 +9,7 @@ const BottomNav = () => {
   const navItems = [
     { icon: 'layout-dashboard', label: 'Dashboard', path: '/dashboard' },
     { icon: 'message-square-plus', label: 'Create', path: '/create-question' },
-    { icon: 'sparkles', label: 'Response', path: '/response' },
+    { icon: 'briefcase', label: 'Workspace', path: '/workspace' },
     { icon: 'history', label: 'History', path: '/history' },
     { icon: 'search', label: 'Discover', path: '/discover-questions' },
     // { icon: 'settings', label: 'Settings' },

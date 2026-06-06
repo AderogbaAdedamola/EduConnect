@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 const MENU_ITEMS = [
   { icon: 'layout-dashboard',    label: 'Dashboard',        path: '/dashboard' },
   { icon: 'message-square-plus', label: 'Create Question',  path: '/create-question' },
-  { icon: 'sparkles',            label: 'Response',         path: '/response' },
+  { icon: 'briefcase',           label: 'Workspace',        path: '/workspace' },
   { icon: 'history',             label: 'History',          path: '/history' },
   { icon: 'search',              label: 'Discover',         path: '/discover-questions' },
 ]

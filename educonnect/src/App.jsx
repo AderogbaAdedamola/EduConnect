@@ -17,12 +17,9 @@ import Dashboard from "./pages/Dashboard"
 import CreateQuestion from "./pages/CreateQuestion"
 import History from "./pages/History"
 import DiscoverQuestion from "./pages/DiscoverQuestion"
-import Response from "./pages/Response"
 import Profile from "./pages/Profile"
-import AIChatPage from "./components/CreateQuestion/AIChatPage"
-
-
-
+import AnswerPage from "./pages/AnswerPage"
+import Workspace from "./pages/Workspace"
 
 function AppContent() {
  
@@ -45,21 +42,14 @@ function AppContent() {
             <CreateQuestion />
           </ProtectedRoute>
           } />
-        <Route path="/create-with-ai" element={
+        <Route path="/workspace" element={
           <ProtectedRoute>
-            <AIChatPage />
+            <Workspace />
           </ProtectedRoute>
         } />
         <Route path="/history"element={
           <ProtectedRoute>
             <History />
-          </ProtectedRoute>
-          } />
-        <Route path="/response"element={
-          <ProtectedRoute>
-            <MainLayout >
-              <Response />
-            </MainLayout>
           </ProtectedRoute>
           } />
           <Route path="/discover-questions"element={
@@ -76,6 +66,8 @@ function AppContent() {
             </MainLayout>
           </ProtectedRoute>
           } />
+          
+        <Route path="/answer/:id" element={<AnswerPage />} />
           
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
