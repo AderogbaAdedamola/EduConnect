@@ -329,91 +329,81 @@ Be conversational and helpful. Ask clarifying questions if needed (subject, diff
   }
 
   return (
-    <div className="flex-1 flex flex-col h-full bg-transparent">
-      {/* ── Top Bar ───────────────────────────────────────── */}
-      <div className="shrink-0 bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm border-b border-slate-200 dark:border-slate-700 px-4 py-3">
+    <div className="flex-1 flex flex-col h-full overflow-hidden">
+
+      {/* ── Top Bar ─────────────────────────────────────────── */}
+      <div className="shrink-0 bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 px-4 py-3">
         <div className="flex items-center justify-between gap-3">
-          {/* Title */}
-          <div className="flex items-center gap-3">
-            <div className="flex items-center gap-2">
-              <div className="w-7 h-7 bg-purple-100 dark:bg-purple-900/40 rounded-lg flex items-center justify-center">
-                <Icon name="sparkles" className="text-purple-600 dark:text-purple-400 text-sm" />
-              </div>
-              <span className="text-sm font-bold text-slate-900 dark:text-white">Create with AI</span>
+          <div className="flex items-center gap-2">
+            <div className="w-7 h-7 bg-purple-100 dark:bg-purple-900/40 rounded-lg flex items-center justify-center">
+              <Icon name="sparkles" className="text-purple-600 dark:text-purple-400 text-sm" />
             </div>
+            <span className="text-sm font-bold text-slate-900 dark:text-white">AI Chat</span>
           </div>
-
-              {/* Actions */}
-              <div className="flex items-center gap-2">
-                {(activeTab?.messages ?? []).length > 0 && (
-                  <button
-                    type="button"
-                    onClick={clearChat}
-                    className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
-                    title="Clear this chat"
-                  >
-                    <Icon name="trash-2" />
-                  </button>
-                )}
-                <button
-                  type="button"
-                  onClick={addTab}
-                  className="p-1.5 rounded-lg text-slate-400 hover:text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
-                  title="New chat"
-                >
-                  <Icon name="plus" />
-                </button>
-              </div>
-            </div>
-
-            {/* ── Tabs ──────────────────────────────────────────── */}
-            <div className="flex items-center gap-1.5 mt-3 overflow-x-auto pb-0.5 custom-scrollbar">
-              {tabs.map(tab => (
-                <TabPill
-                  key={tab.id}
-                  tab={tab}
-                  isActive={tab.id === activeTabId}
-                  onClick={() => setActiveTabId(tab.id)}
-                  onClose={() => closeTab(tab.id)}
-                  onRename={(title) => renameTab(tab.id, title)}
-                />
-              ))}
-            </div>
-          </div>
-
-          {/* ── Chat Area ─────────────────────────────────────── */}
-          <div className="flex-1 overflow-y-auto custom-scrollbar px-4 py-4 space-y-4">
-            {(activeTab?.messages ?? []).length === 0
-              ? <EmptyChat onSuggestion={(s) => sendMessage(s)} />
-              : (activeTab.messages
-                  .filter(m => m.content !== '__HAS_QUESTIONS__')
-                  .map(m => <MessageBubble key={m.id} message={m} />)
-                )
-            }
-            <div ref={messagesEndRef} />
-          </div>
-
-          {/* ── Generate Questions Banner ──────────────────────── */}
-          {hasGeneratedQuestions && (
-            <div className="shrink-0 mx-4 mb-3 px-4 py-3 bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800 rounded-2xl flex items-center justify-between gap-3">
-              <div className="flex items-center gap-2">
-                <Icon name="check-circle" className="text-purple-600 dark:text-purple-400 shrink-0" />
-                <p className="text-xs font-semibold text-purple-700 dark:text-purple-300">
-                  Question set ready — push it to the wizard
-                </p>
-              </div>
-              <button
-                type="button"
-                onClick={handleGenerateQuestions}
-                className="flex items-center gap-1.5 px-3 py-1.5 bg-purple-600 hover:bg-purple-700 text-white text-xs font-semibold rounded-xl transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 shrink-0"
+          <div className="flex items-center gap-2">
+            {(activeTab?.messages ?? []).length > 0 && (
+              <button type="button" onClick={clearChat}
+                className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                title="Clear chat"
               >
-                <Icon name="wand-2" className="text-xs" />
-                Use these questions
+                <Icon name="trash-2" />
               </button>
-            </div>
-          )}
+            )}
+            <button type="button" onClick={addTab}
+              className="p-1.5 rounded-lg text-slate-400 hover:text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
+              title="New chat"
+            >
+              <Icon name="plus" />
+            </button>
+          </div>
+        </div>
 
-      {/* ── Input Bar ─────────────────────────────────────── */}
+        {/* ── Chat Tabs ── */}
+        <div className="flex items-center gap-1.5 mt-3 overflow-x-auto pb-0.5 custom-scrollbar">
+          {tabs.map(tab => (
+            <TabPill
+              key={tab.id}
+              tab={tab}
+              isActive={tab.id === activeTabId}
+              onClick={() => setActiveTabId(tab.id)}
+              onClose={() => closeTab(tab.id)}
+              onRename={(title) => renameTab(tab.id, title)}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* ── Chat Area ──────────────────────────────────────── */}
+      <div className="flex-1 overflow-y-auto custom-scrollbar px-4 py-4 space-y-4">
+        {(activeTab?.messages ?? []).length === 0
+          ? <EmptyChat onSuggestion={(s) => sendMessage(s)} />
+          : (activeTab.messages
+              .filter(m => m.content !== '__HAS_QUESTIONS__')
+              .map(m => <MessageBubble key={m.id} message={m} />)
+            )
+        }
+        <div ref={messagesEndRef} />
+      </div>
+
+      {/* ── Generate Questions Banner ───────────────────────── */}
+      {hasGeneratedQuestions && (
+        <div className="shrink-0 mx-4 mb-3 px-4 py-3 bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800 rounded-2xl flex items-center justify-between gap-3">
+          <div className="flex items-center gap-2">
+            <Icon name="check-circle" className="text-purple-600 dark:text-purple-400 shrink-0" />
+            <p className="text-xs font-semibold text-purple-700 dark:text-purple-300">
+              Question set ready — push it to the wizard
+            </p>
+          </div>
+          <button type="button" onClick={handleGenerateQuestions}
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-purple-600 hover:bg-purple-700 text-white text-xs font-semibold rounded-xl transition-colors shrink-0"
+          >
+            <Icon name="wand-2" className="text-xs" />
+            Use these questions
+          </button>
+        </div>
+      )}
+
+      {/* ── Input Bar ──────────────────────────────────────── */}
       <div className="shrink-0 px-4 pb-4">
         <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-sm">
           <textarea
@@ -427,15 +417,11 @@ Be conversational and helpful. Ask clarifying questions if needed (subject, diff
             className="w-full bg-transparent px-4 pt-3 pb-1 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 outline-none resize-none"
           />
           <div className="flex items-center justify-between px-3 pb-2.5">
-            <p className="text-xs text-slate-400">
-              Enter to send · Shift+Enter for new line
-            </p>
-            <button
-              type="button"
-              onClick={() => sendMessage()}
+            <p className="text-xs text-slate-400">Enter to send · Shift+Enter for new line</p>
+            <button type="button" onClick={() => sendMessage()}
               disabled={!input.trim() || loading}
               aria-label="Send message"
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 disabled:opacity-40 disabled:cursor-not-allowed text-white text-xs font-semibold rounded-xl transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 disabled:opacity-40 disabled:cursor-not-allowed text-white text-xs font-semibold rounded-xl transition-colors"
             >
               <Icon name="send" className="text-xs" />
               Send
@@ -443,6 +429,7 @@ Be conversational and helpful. Ask clarifying questions if needed (subject, diff
           </div>
         </div>
       </div>
+
     </div>
   )
 }
